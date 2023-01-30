@@ -1,13 +1,12 @@
-import { createQuestion } from "./create-question.utilis";
+
 
 export function wordPicker(wordlist) {
     let chosenIndex = Math.floor(Math.random() * wordlist.length);
 
-    let question = createQuestion(wordlist[chosenIndex]);
+    let { right_spelling: rightSpelling, wrong_spelling: wrongSpelling } = wordlist.splice(chosenIndex, 1)[0];
 
-    wordlist.splice(chosenIndex, 1);
-
-    return question;
+    return {
+        rightSpelling,
+        wrongSpelling
+    };
 }
-
-console.log(wordPicker(['hello', 'how', 'what', 'now']))
