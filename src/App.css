@@ -1,0 +1,37 @@
+.Task {
+  background-color: gainsboro;
+  border-radius: 8px;
+  padding: 2%;
+  margin: 4px;
+  text-align: left;
+}
+
+.Task .status {
+   margin-left:  12.5%;
+   margin-right:  12.5%;
+}
+
+.Task button {
+  float: right;
+  margin-left: 4px;
+}
+
+body {
+  width: 50%;
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  text-align: center;
+}
+
+.status_button{
+  background-color: rgb(132, 237, 20);
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.delete_button{
+  background-color: red;
+  border-radius: 8px;
+  border: 1px solid black;
+}
