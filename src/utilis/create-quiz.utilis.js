@@ -1,6 +1,6 @@
 import { wordPicker } from "./word-picker.utilis";
 
-function createQuiz(wordlist) {
+export function createQuiz(wordlist) {
     let reusult = [];
     let clonedList = [...wordlist];
 
