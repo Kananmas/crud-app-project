@@ -1,10 +1,10 @@
 import supabase from "../services/supabaseClient";
 import { useEffect, useState } from "react";
-import { createQuiz } from "../utilis/create-quiz.utilis";
+import { createQuiz } from "../utils/create-quiz.util";
 import { useTimer } from "../hooks/timer.hook";
 import { useRandom } from "../hooks/random.hook";
 
-export default function Home() {
+export function Home() {
   let [list, setList] = useState([]);
   let [question, setQuestion] = useState({});
   let [currentIndex, setCurrentIndex] = useState(0);
