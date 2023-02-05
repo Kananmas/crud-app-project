@@ -4,11 +4,9 @@ import { useEffect } from "react";
 
 // components
 import { IonButton } from "@ionic/react";
-import { If } from "../If";
 
 export function Question(props) {
-  const { length, currentIndex, answerRate, randomWord, score, handler } =
-    props;
+  const { score, randomWord, handler } = props;
 
   let maxTime = 30;
   let { value, isDone, start, reset, stop } = useTimer(maxTime);
@@ -53,21 +51,15 @@ export function Question(props) {
 
   return (
     <>
-      <If condition={currentIndex > 0}>
-        <h4>Shortest Answer:{answerRate}s</h4>
-      </If>
-
       <div>
-        <h4>Shown word:</h4>
+        <h4>word:</h4>
         {randomWord}
       </div>
-      <h4>Score:{score}</h4>
+
       <h4>Timer:{value}</h4>
-      <h4>Question Number:{currentIndex + 1}</h4>
-      <If condition={length && value > 0}>
-        <IonButton onClick={HandleOnClickRight}>Right</IonButton>
-        <IonButton onClick={HandleOnClickWrong}>Wrong</IonButton>
-      </If>
+      <h4>score:{score}</h4>
+      <IonButton onClick={HandleOnClickRight}>Right</IonButton>
+      <IonButton onClick={HandleOnClickWrong}>Wrong</IonButton>
     </>
   );
 }

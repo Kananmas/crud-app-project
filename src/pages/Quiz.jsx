@@ -50,11 +50,8 @@ export default function Quiz() {
   // props we use fo displaying information to question component
   let props = useMemo(() => {
     return {
-      answerRate: answerRate,
       score: score,
       randomWord: randomWord,
-      currentIndex: currentIndex,
-      length: 30,
       handler: handleAnswer,
     };
   }, [question]);

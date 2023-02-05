@@ -33,10 +33,10 @@ code {
 }
 
 body {
-  width: 50%;
+  width: 70%;
   position: absolute;
-  left: 25%;
-  right: 25%;
+  left: 15%;
+  right: 15%;
   text-align: center;
 }
 

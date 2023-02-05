@@ -4,7 +4,7 @@ import { createQuiz } from "../utils/create-quiz.util";
 export const fetchWords = async () => {
     let result = [];
     try {
-        const { data } = await supabase.from("questionlist").select();
+        const { data } = await supabase.from("questions").select();
 
         if (data) {
             result = createQuiz(data);
