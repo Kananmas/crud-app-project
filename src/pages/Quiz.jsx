@@ -82,7 +82,6 @@ export default function Quiz() {
         wrong_answers_count: wrongAnswers.length,
         unanswereds_count: unanswereds.length,
         user_name: localStorage.getItem("username"),
-        fastest_answer: answerRate,
       };
 
       setInDataBase(data);
