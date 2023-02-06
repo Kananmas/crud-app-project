@@ -1,12 +1,10 @@
 import supabase from "../services/supabaseClient";
 
 export async function setInDataBase(data) {
-    const opreation = await supabase.from("result-records").select();
-    const { data: list } = opreation;
-    let length = list.length;
-    data.id = length + 1;
+    const { data: $data } = await supabase.from("result-records").select();
+    console.log($data)
     try {
-        await supabase.from("results").insert(data);
+        await supabase.from("result-records").insert(data);
     } catch (error) {
         console.warn(error.message);
     }
