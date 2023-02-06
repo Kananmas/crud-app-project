@@ -1,0 +1,42 @@
+.bgcolor {
+  background-color: #191a1f;
+}
+.bgTransparent {
+  --background: transparent;
+  color: white;
+}
+.startButton {
+  display: block;
+  margin: 20px auto;
+  width: 70%;
+  height: 60px;
+  font-weight: 700;
+  --background: #ff4c01;
+  --box-shadow: none;
+  --border-radius: 16px;
+}
+.howPlayTitle {
+  text-align: center;
+  font-weight: 700;
+  color: #fef377;
+  text-shadow: 0 0 2px #fef377;
+  margin-top: 36px;
+  margin-bottom: 80px;
+}
+.slider {
+  --bullet-background-active: #ff4c01;
+  --swiper-pagination-bullet-size: 10px;
+  background-image: url("./assets/images/hero-section.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter:drop-shadow(-20px -120px 180px #ff4c01);
+}
+.slideTitle {
+  font-weight: 700;
+  font-size: 40px;
+}
+.slideText {
+  width: 65%;
+  font-size: 20px;
+  text-align: justify;
+}

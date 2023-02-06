@@ -1,8 +1,10 @@
+// global components
 import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 // components
 import { Home } from "./pages/Home";
+import { Slider } from "./pages/Slider";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -22,8 +24,8 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-
-import './App.css';
+// styles
+import "./App.css";
 
 setupIonicReact();
 export function App() {
@@ -33,6 +35,9 @@ export function App() {
         <IonRouterOutlet>
           <Route exact path="/home">
             <Home />
+          </Route>
+          <Route exact path="/slider">
+            <Slider />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />
