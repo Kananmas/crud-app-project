@@ -1,21 +1,24 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { Button } from "../components/Button";
+import { Input } from "../components/Input";
 import { signInUser } from "../utils/sign-in-user.util";
+import "./style.css";
 
 export default function Signin() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const History = useHistory();
 
-  const ChangePassword = (e) => {
+  const handlerChangePassword = (e) => {
     setPassword(e.target.value);
   };
 
-  const ChangeEmail = (e) => {
+  const handlerChangeEmail = (e) => {
     setEmail(e.target.value);
   };
 
-  const HandleSignIn = () => {
+  const handleSignIn = () => {
     if (!password.length || !email.length) {
       alert("please enter fill all the fields");
     } else {
@@ -28,21 +31,27 @@ export default function Signin() {
   };
 
   return (
-    <>
-      <label>Email:</label>
+    <div class="container">
+      <Input
+        color="orange"
+        placeholder="Email"
+        type="email"
+        value={email}
+        onChange={handlerChangeEmail}
+      />
+      <Input
+        color="orange"
+        placeholder="Password"
+        type="password"
+        value={password}
+        onChange={handlerChangePassword}
+      />
+      <Button onClick={handleSignIn}>Sign in</Button>
       <div>
-        <input type="Email" onChange={ChangeEmail} />
+        <Link className="orange" to="/signup">
+          don't have an account? sign up
+        </Link>
       </div>
-      <label>Password:</label>
-      <div>
-        <input type="password" onChange={ChangePassword} />
-      </div>
-
-      <input type="button" value="Sign in" onClick={HandleSignIn} />
-
-      <div>
-        <Link to="/signup">don't have an account? sign up</Link>
-      </div>
-    </>
+    </div>
   );
 }
