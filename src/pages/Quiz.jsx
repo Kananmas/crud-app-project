@@ -4,7 +4,7 @@ import { setInDataBase } from "../utils/set-in-database.utils";
 import { memo } from "react";
 
 // hooks
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useRandom } from "../hooks/random.hook";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -39,22 +39,13 @@ export default function Quiz() {
   let [currentIndex, setCurrentIndex] = useState(0);
   let [question, setQuestion] = useState({});
   // random spelling which we show to the user
-  let randomWord = useRandom(question, [questions, currentIndex]);
+  let randomWord = useRandom(question, [question, currentIndex]);
   // variable we use to store the user's score
   let [score, setScore] = useState(0);
   // fastest time that user answered to a question
   let [answerRate, setAnswerRate] = useState(30);
   let [isFinished, setIsFinished] = useState(false);
   let [isLoading, setIsLoading] = useState(true);
-
-  // props we use fo displaying information to question component
-  let props = useMemo(() => {
-    return {
-      score: score,
-      randomWord: randomWord,
-      handler: handleAnswer,
-    };
-  }, [question]);
 
   // fetch the word's from supabse then set it in our store
   useEffect(() => {
@@ -83,6 +74,7 @@ export default function Quiz() {
         right_answers_count: rightAnswers.length,
         wrong_answers_count: wrongAnswers.length,
         unanswereds_count: unanswereds.length,
+        user_name: localStorage.getItem("username"),
         fastest_answer: answerRate,
       };
 
@@ -143,7 +135,12 @@ export default function Quiz() {
     <>
       <If condition={!isLoading}>
         <If condition={!isFinished}>
-          <QuestionMemo {...props} />
+          <QuestionMemo
+            randomWord={randomWord}
+            handler={handleAnswer}
+            answerRate={answerRate}
+            score={score}
+          />
         </If>
         <Else condition={!isFinished}>
           <h1>Done!</h1>

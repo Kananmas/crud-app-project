@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { addNewUser } from "../utils/add-new-user.utlil";
 import { signUpUser } from "../utils/sign-up-user.util";
 
 export default function Signup() {
@@ -7,6 +8,16 @@ export default function Signup() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const History = useHistory();
+
+  const goToQuiz = () => {
+    History.push("/quiz");
+  };
+
+  useEffect(() => {
+    if (!!localStorage.getItem("initialized")) {
+      goToQuiz();
+    }
+  }, []);
 
   const ChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -25,7 +36,10 @@ export default function Signup() {
       alert("please enter fill all the fields");
     } else {
       signUpUser(email, password, username).then(() => {
-        History.push("/quiz");
+        localStorage.setItem("initialized", "true");
+
+        addNewUser(username, email);
+        goToQuiz();
       });
     }
   };
