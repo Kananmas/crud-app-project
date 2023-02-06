@@ -18,6 +18,7 @@ import { addUnasweredQuestion } from "../store/quiz/quiz.actions";
 import { Question } from "../components/Question";
 import { If } from "../components/If";
 import { Else } from "../components/Else";
+import { Result } from "../components/Result";
 
 const QuestionMemo = memo(Question);
 
@@ -49,6 +50,12 @@ export default function Quiz() {
 
   // fetch the word's from supabse then set it in our store
   useEffect(() => {
+    const lastQuiz = localStorage.getItem("lastQuizDate");
+    if (lastQuiz) {
+      if (lastQuiz === new Date().toDateString()) {
+        setIsFinished(true);
+      }
+    }
     //fetchs the word list from data base
     const $fetch = fetchWords();
     // variable $fetch returns an promise
@@ -131,6 +138,12 @@ export default function Quiz() {
     if renders a component if a condition is true and else renders it when
     condition is false 
   */
+
+  function trade() {
+    setScore((score) => score - 100);
+    localStorage.removeItem("lastQuizDate");
+    setIsFinished(false);
+  }
   return (
     <>
       <If condition={!isLoading}>
@@ -143,7 +156,7 @@ export default function Quiz() {
           />
         </If>
         <Else condition={!isFinished}>
-          <h1>Done!</h1>
+          <Result trade={trade} score={score} />
         </Else>
       </If>
       <Else condition={!isLoading}>

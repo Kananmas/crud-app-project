@@ -1,0 +1,12 @@
+html {
+  background-color: #1a1b20;
+}
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.orange {
+  color: #ff4c01;
+}
