@@ -33,7 +33,7 @@ export default function Quiz() {
 
   // values we use are stored insied question reducer which names as quiz
   // inside combine reducers
-  const { questions, correctAnswers, wrongAnswers, unanswereds } = quiz;
+  const { questions, rightAnswers, wrongAnswers, unanswereds } = quiz;
 
   // index of the question
   let [currentIndex, setCurrentIndex] = useState(0);
@@ -77,11 +77,13 @@ export default function Quiz() {
   useEffect(() => {
     if (isFinished) {
       let data = {
-        id: null,
+           id: Math.random().toString(16).slice(2),
         quiz_date: new Date(),
-        rights: correctAnswers,
-        wrongs: wrongAnswers,
-        unanswered: unanswereds,
+        score: score,
+        right_answers_count: rightAnswers.length,
+        wrong_answers_count: wrongAnswers.length,
+        unanswereds_count: unanswereds.length,
+        fastest_answer: answerRate,
       };
 
       setInDataBase(data);
