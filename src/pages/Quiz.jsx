@@ -4,7 +4,7 @@ import { setInDataBase } from "../utils/set-in-database.utils";
 import { memo } from "react";
 
 // hooks
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useRandom } from "../hooks/random.hook";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -18,6 +18,7 @@ import { addUnasweredQuestion } from "../store/quiz/quiz.actions";
 import { Question } from "../components/Question";
 import { If } from "../components/If";
 import { Else } from "../components/Else";
+import { Result } from "../components/Result";
 
 const QuestionMemo = memo(Question);
 
@@ -39,7 +40,7 @@ export default function Quiz() {
   let [currentIndex, setCurrentIndex] = useState(0);
   let [question, setQuestion] = useState({});
   // random spelling which we show to the user
-  let randomWord = useRandom(question, [questions, currentIndex]);
+  let randomWord = useRandom(question, [question, currentIndex]);
   // variable we use to store the user's score
   let [score, setScore] = useState(0);
   // fastest time that user answered to a question
@@ -47,17 +48,14 @@ export default function Quiz() {
   let [isFinished, setIsFinished] = useState(false);
   let [isLoading, setIsLoading] = useState(true);
 
-  // props we use fo displaying information to question component
-  let props = useMemo(() => {
-    return {
-      score: score,
-      randomWord: randomWord,
-      handler: handleAnswer,
-    };
-  }, [question]);
-
   // fetch the word's from supabse then set it in our store
   useEffect(() => {
+    const lastQuiz = localStorage.getItem("lastQuizDate");
+    if (lastQuiz) {
+      if (lastQuiz === new Date().toDateString()) {
+        setIsFinished(true);
+      }
+    }
     //fetchs the word list from data base
     const $fetch = fetchWords();
     // variable $fetch returns an promise
@@ -77,13 +75,13 @@ export default function Quiz() {
   useEffect(() => {
     if (isFinished) {
       let data = {
-           id: Math.random().toString(16).slice(2),
+        id: Math.random().toString(16).slice(2),
         quiz_date: new Date(),
         score: score,
         right_answers_count: rightAnswers.length,
         wrong_answers_count: wrongAnswers.length,
         unanswereds_count: unanswereds.length,
-        fastest_answer: answerRate,
+        user_name: localStorage.getItem("username"),
       };
 
       setInDataBase(data);
@@ -139,14 +137,25 @@ export default function Quiz() {
     if renders a component if a condition is true and else renders it when
     condition is false 
   */
+
+  function trade() {
+    setScore((score) => score - 100);
+    localStorage.removeItem("lastQuizDate");
+    setIsFinished(false);
+  }
   return (
     <>
       <If condition={!isLoading}>
         <If condition={!isFinished}>
-          <QuestionMemo {...props} />
+          <QuestionMemo
+            randomWord={randomWord}
+            handler={handleAnswer}
+            answerRate={answerRate}
+            score={score}
+          />
         </If>
         <Else condition={!isFinished}>
-          <h1>Done!</h1>
+          <Result trade={trade} score={score} />
         </Else>
       </If>
       <Else condition={!isLoading}>
