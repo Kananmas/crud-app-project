@@ -1,5 +1,5 @@
 import supabase from "../services/supabaseClient";
-import { createQuiz } from "../utils/create-quiz.util";
+import { createQuiz } from "./create-quiz.utils";
 
 export const fetchWords = async () => {
     let result = [];

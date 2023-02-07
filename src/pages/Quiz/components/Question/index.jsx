@@ -50,16 +50,20 @@ export function Question(props) {
   }, [randomWord]);
 
   return (
-    <>
+    <div style={{ color: "white", textAlign: "center" }}>
       <div>
         <h4>word:</h4>
         {randomWord}
       </div>
 
-      <h4>Timer:{value}</h4>
+      <h4>Timer:{value}s</h4>
       <h4>score:{score}</h4>
-      <IonButton onClick={HandleOnClickRight}>Right</IonButton>
-      <IonButton onClick={HandleOnClickWrong}>Wrong</IonButton>
-    </>
+      <IonButton expand="block" onClick={HandleOnClickRight}>
+        Right
+      </IonButton>
+      <IonButton expand="block" onClick={HandleOnClickWrong}>
+        Wrong
+      </IonButton>
+    </div>
   );
 }

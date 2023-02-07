@@ -12,19 +12,16 @@ code {
     monospace;
 }
 
-body {
+html {
+  background-color: #1a1b20;
+}
+.container {
   width: 70%;
   position: absolute;
   left: 15%;
   right: 15%;
   text-align: center;
-}
 
-
-html {
-  background-color: #1a1b20;
-}
-.container {
   height: 100vh;
   display: flex;
   flex-direction: column;

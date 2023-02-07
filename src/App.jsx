@@ -2,9 +2,9 @@ import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 // Pages
-import Quiz from "./pages/Quiz";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
+import { Quiz } from "./pages/Quiz";
+import { Signin } from "./pages/Signin";
+import { Signup } from "./pages/Signup";
 
 // Redux
 import { store } from "./store";
@@ -30,6 +30,8 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 import "./App.css";
+import { Slider } from "./pages/Slider";
+import { Result } from "./pages/Result";
 
 setupIonicReact();
 export function App() {
@@ -44,8 +46,14 @@ export function App() {
             <Route exact path="/signin">
               <Signin />
             </Route>
+            <Route exact path="/slider">
+              <Slider />
+            </Route>
             <Route exact path="/quiz">
               <Quiz />
+            </Route>
+            <Route exact path="/result">
+              <Result />
             </Route>
             <Route exact path="/">
               <Redirect to="/signup" />
