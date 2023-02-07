@@ -33,7 +33,7 @@ export default function Quiz() {
 
   // values we use are stored insied question reducer which names as quiz
   // inside combine reducers
-  const { questions, correctAnswers, wrongAnswers, unanswereds } = quiz;
+  const { questions, rightAnswers, wrongAnswers, unanswereds } = quiz;
 
   // index of the question
   let [currentIndex, setCurrentIndex] = useState(0);
@@ -79,7 +79,7 @@ export default function Quiz() {
       let data = {
         id: null,
         quiz_date: new Date(),
-        rights: correctAnswers,
+        rights: rightAnswers,
         wrongs: wrongAnswers,
         unanswered: unanswereds,
       };
