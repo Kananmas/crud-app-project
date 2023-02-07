@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Button } from "../components/Button";
-import { Input } from "../components/Input";
-import { getUser } from "../utils/get-user.utils";
-import { signInUser } from "../utils/sign-in-user.util";
-import "./style.css";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
+import { getUser } from "../../utils/get-user.utils";
+import { signInUser } from "../../utils/sign-in-user.util";
+import { useIonAlert } from "@ionic/react";
 
 export default function Signin() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const History = useHistory();
+
+  const [presentAlert] = useIonAlert();
 
   const goToQuiz = () => {
     History.push("/quiz");
@@ -31,7 +33,11 @@ export default function Signin() {
 
   const handleSignIn = () => {
     if (!password.length || !email.length) {
-      alert("please enter fill all the fields");
+      presentAlert({
+        header: "Alert",
+        message: "please enter fill all the fields",
+        buttons: ["OK"],
+      });
     } else {
       signInUser(email, password).then(() => {
         if (!localStorage.getItem("initailized")) {

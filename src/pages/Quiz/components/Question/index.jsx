@@ -1,5 +1,5 @@
 // hooks
-import { useTimer } from "../../hooks/timer.hook";
+import { useTimer } from "../../../../hooks/timer.hook";
 import { useEffect } from "react";
 
 // components

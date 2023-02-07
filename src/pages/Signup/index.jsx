@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Input } from "../components/Input";
-import { signUpUser } from "../utils/sign-up-user.util";
-import { Button } from "../components/Button";
+import { Input } from "../../components/Input";
+import { signUpUser } from "../../utils/sign-up-user.util";
+import { Button } from "../../components/Button";
 import { useIonAlert } from "@ionic/react";
 
-import { addNewUser } from "../utils/add-new-user.utlil";
-import "./style.css";
+import { addNewUser } from "../../utils/add-new-user.utlil";
 
 export default function Signup() {
   let [username, setUsername] = useState("");

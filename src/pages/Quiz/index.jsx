@@ -1,24 +1,24 @@
 // utils
-import { fetchWords } from "../utils/fetch-words.utils";
-import { setInDataBase } from "../utils/set-in-database.utils";
+import { fetchWords } from "../../utils/fetch-words.utils";
+import { setInDataBase } from "../../utils/set-in-database.utils";
 import { memo } from "react";
 
 // hooks
 import { useEffect, useState } from "react";
-import { useRandom } from "../hooks/random.hook";
+import { useRandom } from "../../hooks/random.hook";
 import { useSelector, useDispatch } from "react-redux";
 
 // actions
-import { setQuestionsAction } from "../store/quiz/quiz.actions";
-import { addCorrectAnswerAction } from "../store/quiz/quiz.actions";
-import { addWrongAnswerAction } from "../store/quiz/quiz.actions";
-import { addUnasweredQuestion } from "../store/quiz/quiz.actions";
+import { setQuestionsAction } from "../../store/quiz/quiz.actions";
+import { addCorrectAnswerAction } from "../../store/quiz/quiz.actions";
+import { addWrongAnswerAction } from "../../store/quiz/quiz.actions";
+import { addUnasweredQuestion } from "../../store/quiz/quiz.actions";
 
 // components
-import { Question } from "../components/Question";
-import { If } from "../components/If";
-import { Else } from "../components/Else";
-import { Result } from "../components/Result";
+import { Question } from "./components/Question";
+import { If } from "../../components/If";
+import { Else } from "../../components/Else";
+import { Result } from "./components/Result";
 
 const QuestionMemo = memo(Question);
 
