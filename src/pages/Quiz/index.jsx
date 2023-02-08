@@ -1,26 +1,28 @@
 // utils
-import { fetchWords } from "./utils/fetch-words.utils";
-import { setInDataBase } from "./utils/set-in-database.utils";
-import { memo } from "react";
+import { fetchWords } from "./utils/fetch-words.util";
+import { setInDataBase } from "./utils/set-in-database.util";
+import { randomString } from "../../utils/random-string.util";
 
 // hooks
 import { useEffect, useState } from "react";
 import { useRandom } from "../../hooks/random.hook";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { memo } from "react";
 
 // actions
-import { setQuestionsAction } from "../../store/quiz/quiz.actions";
-import { addCorrectAnswerAction } from "../../store/quiz/quiz.actions";
-import { addWrongAnswerAction } from "../../store/quiz/quiz.actions";
+import { setQuestions } from "../../store/quiz/quiz.actions";
+import { addCorrectAnswer } from "../../store/quiz/quiz.actions";
+import { addWrongAnswer } from "../../store/quiz/quiz.actions";
 import { addUnasweredQuestion } from "../../store/quiz/quiz.actions";
 
 // components
 import { Question } from "./components/Question";
 import { If } from "../../components/If";
 import { Else } from "../../components/Else";
+
+// global components
 import { IonSpinner } from "@ionic/react";
-import { randomString } from "../../utils/random-string.util";
 
 const QuestionMemo = memo(Question);
 
@@ -72,7 +74,7 @@ export function Quiz() {
     $fetch
       .then((arr) => {
         if (arr.length) {
-          dispatch(setQuestionsAction(arr));
+          dispatch(setQuestions(arr));
         }
         setQuestion(arr[currentIndex]);
         setIsLoading(false);
@@ -113,11 +115,11 @@ export function Quiz() {
       if (trueAnswer === userAnsewer) {
         setScore((score) => score + 10);
         //dispatch an action that sets the store's rights
-        dispatch(addCorrectAnswerAction(question));
+        dispatch(addCorrectAnswer(question));
       } else {
         setScore((score) => score - 5);
         //dispatch an action that sets the store's wrongs
-        dispatch(addWrongAnswerAction(question));
+        dispatch(addWrongAnswer(question));
       }
     } else {
       //dispatch an actions that sets the strore's unanswereds

@@ -6,11 +6,12 @@ import { useIonAlert } from "@ionic/react";
 // components
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
+// global components
 import { Link } from "react-router-dom";
 
 // utils
-import { addNewUser } from "./utils/add-new-user.utils";
-import { isUsernameUsed } from "./utils/is-username-used";
+import { addNewUser } from "./utils/add-new-user.util";
+import { isUsernameUsed } from "./utils/is-username-used.util";
 import { signUpUser } from "./utils/sign-up-user.util";
 
 export function Signup() {

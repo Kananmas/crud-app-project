@@ -3,7 +3,7 @@ import { useTimer } from "../../../../hooks/timer.hook";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
 
-// components
+// global components
 import { IonButton, IonText, IonGrid, IonRow, IonCol } from "@ionic/react";
 
 export function Question(props) {

@@ -7,22 +7,22 @@ import {
   IonFooter,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useHistory } from "react-router";
-
 import { Keyboard, Mousewheel, Pagination, Parallax } from "swiper";
+// components
+import { Slide } from "./components/Slide";
+import { Menu } from "../../components/Menu";
 // global styles
 import "@ionic/react/css/ionic-swiper.css";
 import "swiper/css";
-
 import "swiper/css/pagination";
 import "swiper/css/mousewheel";
 import "swiper/css/keyboard";
 import "swiper/css/parallax";
 // styles
 import styles from "./index.module.css";
+// hooks
+import { useHistory } from "react-router";
 
-import { Slide } from "./components/Slide";
-import { Menu } from "../../components/Menu";
 
 export function Slider() {
   const History = useHistory();

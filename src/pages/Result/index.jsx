@@ -1,12 +1,12 @@
-// components
+// global components
 import { IonButton } from "@ionic/react";
-
 // hooks
 import { useEffect, useState } from "react";
 import { useIonAlert } from "@ionic/react";
+import { useHistory } from "react-router";
+// utils
 import { getResultFromDatabase } from "./utils/get-result-from-database.util";
 import { updateResultInDatebase } from "./utils/update-result-in-database.util";
-import { useHistory } from "react-router";
 
 export function Result({ trade }) {
   // gets the latest score of user  from database and show it

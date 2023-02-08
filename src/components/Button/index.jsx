@@ -1,3 +1,4 @@
+// global components
 import { IonButton } from "@ionic/react";
 
 export function Button(props) {
