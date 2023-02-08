@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { getUser } from "../../utils/get-user.utils";
-import { signInUser } from "../../utils/sign-in-user.util";
+import { getUser } from "./utils/get-user.utils";
+import { signInUser } from "./utils/sign-in-user.util";
 import { useIonAlert } from "@ionic/react";
 
 export function Signin() {

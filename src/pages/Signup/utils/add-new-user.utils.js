@@ -1,5 +1,5 @@
-import supabase from "../services/supabaseClient";
-import { randomString } from "./random-string.util";
+import supabase from "../../../services/supabaseClient";
+import { randomString } from "../../../utils/random-string.util";
 
 export async function addNewUser(username, email) {
     try {

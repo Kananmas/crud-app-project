@@ -1,6 +1,6 @@
 // utils
-import { fetchWords } from "../../utils/fetch-words.utils";
-import { setInDataBase } from "../../utils/set-in-database.utils";
+import { fetchWords } from "./utils/fetch-words.utils";
+import { setInDataBase } from "./utils/set-in-database.utils";
 import { memo } from "react";
 
 // hooks
@@ -19,6 +19,8 @@ import { addUnasweredQuestion } from "../../store/quiz/quiz.actions";
 import { Question } from "./components/Question";
 import { If } from "../../components/If";
 import { Else } from "../../components/Else";
+import { IonSpinner } from "@ionic/react";
+import { randomString } from "../../utils/random-string.util";
 
 const QuestionMemo = memo(Question);
 
@@ -84,7 +86,7 @@ export function Quiz() {
     if (isFinished) {
       if (currentIndex > 0) {
         let data = {
-          id: Math.random().toString(16).slice(2),
+          id: randomString(),
           quiz_date: new Date(),
           score: score,
           right_answers_count: rightAnswers.length,
@@ -161,7 +163,9 @@ export function Quiz() {
         </If>
       </If>
       <Else condition={!isLoading}>
-        <h1>Loading...</h1>
+        <div className="spinner">
+          <IonSpinner name="circular" color="orange"></IonSpinner>
+        </div>
       </Else>
     </>
   );

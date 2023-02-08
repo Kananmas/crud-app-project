@@ -9,9 +9,9 @@ import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
 
 // utils
-import { addNewUser } from "../../utils/add-new-user.utils";
-import { isUsernameUsed } from "../../utils/is-username-used";
-import { signUpUser } from "../../utils/sign-up-user.util";
+import { addNewUser } from "./utils/add-new-user.utils";
+import { isUsernameUsed } from "./utils/is-username-used";
+import { signUpUser } from "./utils/sign-up-user.util";
 
 export function Signup() {
   let [username, setUsername] = useState("");
