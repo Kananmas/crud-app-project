@@ -48,7 +48,7 @@ export function Result() {
       setRightAnswersCount(rightAnswers.length);
       setWrongAnswersCount(wrongAnswers.length);
       setUnansweredsCount(unanswereds.length);
-      setScore(rightAnswersCount * 10 - wrongAnswersCount * 5);
+      setScore(rightAnswers.length * 10 - wrongAnswers.length * 5);
     }
   }, []);
 
@@ -79,6 +79,10 @@ export function Result() {
         </IonCardHeader>
 
         <IonList>
+        <IonItem>
+            <IonLabel>Score</IonLabel>
+            <IonBadge color="primary">{score}</IonBadge>
+          </IonItem>
           <IonItem>
             <IonLabel>Correct Answers</IonLabel>
             <IonBadge color="success">{rightAnswersCount}</IonBadge>
