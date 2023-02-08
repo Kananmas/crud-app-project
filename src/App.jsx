@@ -2,10 +2,10 @@ import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 // Pages
-import { Quiz } from "./pages/Quiz";
-import { Signin } from "./pages/Signin";
-import { Signup } from "./pages/Signup";
-
+import Quiz from "./pages/Quiz";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import { Question } from "./pages/Quiz/components/Question";
 // Redux
 import { store } from "./store";
 import { Provider } from "react-redux";
@@ -40,6 +40,8 @@ export function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Provider store={store}>
+  <Question />
+            
             <Route exact path="/signup">
               <Signup />
             </Route>
