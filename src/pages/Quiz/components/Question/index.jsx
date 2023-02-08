@@ -1,9 +1,9 @@
 // hooks
 import { useTimer } from "../../../../hooks/timer.hook";
 import { useEffect } from "react";
+import { IonButton, IonText, IonLabel, IonGrid, IonRow, IonCol, IonTitle } from "@ionic/react";
 
-// components
-import { IonButton } from "@ionic/react";
+import "./index.style.css"
 
 export function Question(props) {
   const { score, randomWord, handler } = props;
@@ -50,16 +50,38 @@ export function Question(props) {
   }, [randomWord]);
 
   return (
-    <>
-      <div>
-        <h4>word:</h4>
-        {randomWord}
+    <div className="question">
+      <IonGrid>
+        <IonRow>
+          <IonCol size="2">
+            <div className="col-element">{"<"}</div>
+          </IonCol>
+          <IonCol size="2" offset="3">
+            <div className="timer" >0:32</div>
+          </IonCol>
+          <IonCol offset="2">
+            <div className="col-element">Restart</div>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+
+      <div className="part ">
+        <div className="org-backlight">
+          <IonText color="orange">
+            <h1>apple</h1>
+          </IonText>
+        </div>
       </div>
 
-      <h4>Timer:{value}</h4>
-      <h4>score:{score}</h4>
-      <IonButton onClick={HandleOnClickRight}>Right</IonButton>
-      <IonButton onClick={HandleOnClickWrong}>Wrong</IonButton>
-    </>
+      <div className="part">
+        <div className="score-meter">
+          <h1>6</h1>
+          <p>SCORE</p>
+        </div>
+
+          <IonButton className="start" expand="block" fill="outline" color="orange" size="default">CORRECT</IonButton>
+          <IonButton className="start" expand="block"  >WRONG</IonButton></div>
+      
+    </div>
   );
 }
