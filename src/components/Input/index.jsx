@@ -1,5 +1,8 @@
+// global components
 import { IonInput, IonItem } from "@ionic/react";
+// styles
 import "./style.css";
+
 export function Input(props) {
   return (
     <IonItem class="custom">

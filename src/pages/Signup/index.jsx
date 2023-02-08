@@ -1,14 +1,20 @@
+// hooks
 import { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { Input } from "../components/Input";
-import { signUpUser } from "../utils/sign-up-user.util";
-import { Button } from "../components/Button";
+import { useHistory } from "react-router-dom";
 import { useIonAlert } from "@ionic/react";
 
-import { addNewUser } from "../utils/add-new-user.utlil";
-import "./style.css";
+// components
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
+// global components
+import { Link } from "react-router-dom";
 
-export default function Signup() {
+// utils
+import { addNewUser } from "./utils/add-new-user.util";
+import { isUsernameUsed } from "./utils/is-username-used.util";
+import { signUpUser } from "./utils/sign-up-user.util";
+
+export function Signup() {
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
@@ -16,13 +22,13 @@ export default function Signup() {
 
   const [presentAlert] = useIonAlert();
 
-  const goToQuiz = () => {
-    History.push("/quiz");
+  const goToSlider = () => {
+    History.push("/slider");
   };
 
   useEffect(() => {
     if (!!localStorage.getItem("initialized")) {
-      goToQuiz();
+      goToSlider();
     }
   }, []);
 
@@ -46,11 +52,22 @@ export default function Signup() {
         buttons: ["OK"],
       });
     } else {
-      signUpUser(email, password).then(() => {
-        localStorage.setItem("initialized", "true");
-
-        addNewUser(username, email);
-        goToQuiz();
+      isUsernameUsed(username).then((isUnique) => {
+        if (isUnique) {
+          localStorage.clear();
+          signUpUser(email, password).then((data) => {
+            if (data) {
+              addNewUser(username, email);
+              goToSlider();
+            }
+          });
+        } else {
+          presentAlert({
+            header: "Alert",
+            message: "username is taken by another user please use another one",
+            buttons: ["OK"],
+          });
+        }
       });
     }
   };

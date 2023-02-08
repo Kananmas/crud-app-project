@@ -1,12 +1,10 @@
-import supabase from "../services/supabaseClient";
+import supabase from "../../../services/supabaseClient";
 
 export async function getUser(email) {
     try {
-        const { data } = await supabase.from("users").select();
+        const { data, error } = await supabase.from("users").select();
 
-        console.log(data);
-
-        if (data) {
+        if (!error) {
             for (let i = 0; i < data.length; i++) {
                 const currentData = data[i];
                 if (currentData.email === email) {
@@ -14,6 +12,9 @@ export async function getUser(email) {
                         localStorage.setItem("username", currentData.user_name)
                     }
                 }
+            }
+            if (!localStorage.getItem("initailized")) {
+                localStorage.setItem("initialized", "true");
             }
         }
     } catch (error) {

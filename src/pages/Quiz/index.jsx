@@ -1,24 +1,28 @@
 // utils
-import { fetchWords } from "../utils/fetch-words.utils";
-import { setInDataBase } from "../utils/set-in-database.utils";
-import { memo } from "react";
+import { fetchWords } from "./utils/fetch-words.util";
+import { setInDataBase } from "./utils/set-in-database.util";
+import { randomString } from "../../utils/random-string.util";
 
 // hooks
 import { useEffect, useState } from "react";
-import { useRandom } from "../hooks/random.hook";
+import { useRandom } from "../../hooks/random.hook";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { memo } from "react";
 
 // actions
-import { setQuestionsAction } from "../store/quiz/quiz.actions";
-import { addCorrectAnswerAction } from "../store/quiz/quiz.actions";
-import { addWrongAnswerAction } from "../store/quiz/quiz.actions";
-import { addUnasweredQuestion } from "../store/quiz/quiz.actions";
+import { setQuestions } from "../../store/quiz/quiz.actions";
+import { addCorrectAnswer } from "../../store/quiz/quiz.actions";
+import { addWrongAnswer } from "../../store/quiz/quiz.actions";
+import { addUnasweredQuestion } from "../../store/quiz/quiz.actions";
 
 // components
-import { Question } from "../components/Question";
-import { If } from "../components/If";
-import { Else } from "../components/Else";
-import { Result } from "../components/Result";
+import { Question } from "./components/Question";
+import { If } from "../../components/If";
+import { Else } from "../../components/Else";
+
+// global components
+import { IonSpinner } from "@ionic/react";
 
 const QuestionMemo = memo(Question);
 
@@ -27,10 +31,11 @@ const getQuiz = (store) => {
   return store.quiz;
 };
 
-export default function Quiz() {
+export function Quiz() {
   // redux
   const quiz = useSelector(getQuiz);
   const dispatch = useDispatch();
+  const History = useHistory();
 
   // values we use are stored insied question reducer which names as quiz
   // inside combine reducers
@@ -56,13 +61,20 @@ export default function Quiz() {
         setIsFinished(true);
       }
     }
+
+    if (localStorage.getItem("initialized")) {
+      if (!localStorage.getItem("username")) {
+        localStorage.removeItem("initialized");
+        History.push("/slider");
+      }
+    }
     //fetchs the word list from data base
     const $fetch = fetchWords();
     // variable $fetch returns an promise
     $fetch
       .then((arr) => {
         if (arr.length) {
-          dispatch(setQuestionsAction(arr));
+          dispatch(setQuestions(arr));
         }
         setQuestion(arr[currentIndex]);
         setIsLoading(false);
@@ -74,17 +86,20 @@ export default function Quiz() {
 
   useEffect(() => {
     if (isFinished) {
-      let data = {
-        id: Math.random().toString(16).slice(2),
-        quiz_date: new Date(),
-        score: score,
-        right_answers_count: rightAnswers.length,
-        wrong_answers_count: wrongAnswers.length,
-        unanswereds_count: unanswereds.length,
-        user_name: localStorage.getItem("username"),
-      };
-
-      setInDataBase(data);
+      if (currentIndex > 0) {
+        let data = {
+          id: randomString(),
+          quiz_date: new Date(),
+          score: score,
+          right_answers_count: rightAnswers.length,
+          wrong_answers_count: wrongAnswers.length,
+          unanswereds_count: unanswereds.length,
+          user_name: localStorage.getItem("username"),
+          fastest_answer: answerRate,
+        };
+        setInDataBase(data);
+      }
+      History.push("/result");
     }
   }, [isFinished]);
 
@@ -100,11 +115,11 @@ export default function Quiz() {
       if (trueAnswer === userAnsewer) {
         setScore((score) => score + 10);
         //dispatch an action that sets the store's rights
-        dispatch(addCorrectAnswerAction(question));
+        dispatch(addCorrectAnswer(question));
       } else {
         setScore((score) => score - 5);
         //dispatch an action that sets the store's wrongs
-        dispatch(addWrongAnswerAction(question));
+        dispatch(addWrongAnswer(question));
       }
     } else {
       //dispatch an actions that sets the strore's unanswereds
@@ -137,12 +152,6 @@ export default function Quiz() {
     if renders a component if a condition is true and else renders it when
     condition is false 
   */
-
-  function trade() {
-    setScore((score) => score - 100);
-    localStorage.removeItem("lastQuizDate");
-    setIsFinished(false);
-  }
   return (
     <>
       <If condition={!isLoading}>
@@ -154,12 +163,11 @@ export default function Quiz() {
             score={score}
           />
         </If>
-        <Else condition={!isFinished}>
-          <Result trade={trade} score={score} />
-        </Else>
       </If>
       <Else condition={!isLoading}>
-        <h1>Loading...</h1>
+        <div className="spinner">
+          <IonSpinner name="circular" color="orange"></IonSpinner>
+        </div>
       </Else>
     </>
   );

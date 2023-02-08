@@ -1,23 +1,29 @@
-import { useEffect, useState } from "react";
+// components
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
+// global components
 import { Link, useHistory } from "react-router-dom";
-import { Button } from "../components/Button";
-import { Input } from "../components/Input";
-import { getUser } from "../utils/get-user.utils";
-import { signInUser } from "../utils/sign-in-user.util";
-import "./style.css";
+// hooks
+import { useEffect, useState } from "react";
+import { useIonAlert } from "@ionic/react";
+// utils
+import { getUser } from "./utils/get-user.util";
+import { signInUser } from "./utils/sign-in-user.util";
 
-export default function Signin() {
+export function Signin() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const History = useHistory();
 
-  const goToQuiz = () => {
-    History.push("/quiz");
+  const [presentAlert] = useIonAlert();
+
+  const goToSlider = () => {
+    History.push("/slider");
   };
 
   useEffect(() => {
     if (!!localStorage.getItem("initialized")) {
-      goToQuiz();
+      goToSlider();
     }
   }, []);
 
@@ -31,17 +37,18 @@ export default function Signin() {
 
   const handleSignIn = () => {
     if (!password.length || !email.length) {
-      alert("please enter fill all the fields");
-    } else {
-      signInUser(email, password).then(() => {
-        if (!localStorage.getItem("initailized")) {
-          localStorage.setItem("initialized", "true");
-        }
-        getUser(email);
-        goToQuiz();
+      presentAlert({
+        header: "Alert",
+        message: "please enter fill all the fields",
+        buttons: ["OK"],
       });
-
-      signInUser();
+    } else {
+      signInUser(email, password).then((data) => {
+        if (data) {
+          getUser(email);
+          goToSlider();
+        }
+      });
     }
   };
 
