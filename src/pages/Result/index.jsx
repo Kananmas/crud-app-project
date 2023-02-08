@@ -1,14 +1,30 @@
 // global components
-import { IonButton } from "@ionic/react";
+import {
+  IonBadge,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+} from "@ionic/react";
+
 // hooks
 import { useEffect, useState } from "react";
 import { useIonAlert } from "@ionic/react";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 // utils
 import { getResultFromDatabase } from "./utils/get-result-from-database.util";
 import { updateResultInDatebase } from "./utils/update-result-in-database.util";
 
-export function Result({ trade }) {
+export function Result() {
+  const quiz = useSelector((store) => store.quiz);
+
+  const { questions, rightAnswers, wrongAnswers, unanswereds } = quiz;
+
   // gets the latest score of user  from database and show it
   let [rightAnswersCount, setRightAnswersCount] = useState(0);
   let [wrongAnswersCount, setWrongAnswersCount] = useState(0);
@@ -20,13 +36,20 @@ export function Result({ trade }) {
 
   useEffect(() => {
     localStorage.setItem("lastQuizDate", new Date().toDateString());
-    getResultFromDatabase({
-      setRightAnswersCount,
-      setWrongAnswersCount,
-      setUnansweredsCount,
-      setScore,
-      setQuizId,
-    });
+    if (!questions.length) {
+      getResultFromDatabase({
+        setRightAnswersCount,
+        setWrongAnswersCount,
+        setUnansweredsCount,
+        setScore,
+        setQuizId,
+      });
+    } else {
+      setRightAnswersCount(rightAnswers.length);
+      setWrongAnswersCount(wrongAnswers.length);
+      setUnansweredsCount(unanswereds.length);
+      setScore(rightAnswersCount * 10 - wrongAnswersCount * 5);
+    }
   }, []);
 
   const TakeAnotherQuiz = () => {
@@ -44,17 +67,43 @@ export function Result({ trade }) {
     }
   };
 
-  return (
-    <div style={{ color: "white", textAlign: "center" }}>
-      <h1>Done!</h1>
+  const HandleClickHome = () => {
+    History.push("/slider");
+  };
 
-      <h6>
-        score:{!score ? rightAnswersCount * 10 - wrongAnswersCount * 5 : score}
-      </h6>
-      <h6>wrong answers:{rightAnswersCount}</h6>
-      <h6>true answers:{wrongAnswersCount}</h6>
-      <h6>unanswereds:{unansweredsCount}</h6>
-      <IonButton onClick={TakeAnotherQuiz}>Try again</IonButton>
+  return (
+    <div style={{ textAlign: "center" }}>
+      <IonCard>
+        <IonCardHeader>
+          <IonCardTitle>Result</IonCardTitle>
+        </IonCardHeader>
+
+        <IonList>
+          <IonItem>
+            <IonLabel>Correct Answers</IonLabel>
+            <IonBadge color="success">{rightAnswersCount}</IonBadge>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Wrong Answers</IonLabel>
+            <IonBadge color="danger">{wrongAnswersCount}</IonBadge>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Blank</IonLabel>
+            <IonBadge color="light">{unansweredsCount}</IonBadge>
+          </IonItem>
+        </IonList>
+
+        <IonCardContent>
+          press button to trade point and try again
+        </IonCardContent>
+
+        <IonButton fill="outline" color="danger" onClick={TakeAnotherQuiz}>
+          Try Again
+        </IonButton>
+        <IonButton fill="outline" color="danger" onClick={HandleClickHome}>
+          Back
+        </IonButton>
+      </IonCard>
     </div>
   );
 }

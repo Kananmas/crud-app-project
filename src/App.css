@@ -1,28 +1,21 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-body {
-  background-color: #1a1b20;
-  width: 90%;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  text-align: center;
-}
 html {
   background-color: #1a1b20;
 }
+
 
 .container {
   background-color: #1a1b20;
@@ -40,7 +33,8 @@ html {
   color: #ff4c01;
 }
 
-.question {
+
+.question{
   text-align: center;
   height: 100vh;
   background-color: #1a1b20;
@@ -55,52 +49,55 @@ html {
   height: 35vh;
   padding: 25% 0%;
   color: white;
+  
 }
 .part h1 {
   filter: drop-shadow(0 0 58px rgb(255, 0, 0));
-  font-size: 35px;
-  font-weight: bold;
+  font-size:35px;
+  font-weight:bold;
 }
 
-.timer {
-  color: yellow;
-  padding: 2px;
-  background-color: #404040;
-  border-radius: 8px;
-  font-weight: bold;
+.timer{
+ color: yellow;
+ padding: 2px;
+ background-color: #404040;
+ border-radius: 8px;
+ font-weight: bold;
 }
 
 .col-element {
   font-size: 8px;
-  color: white;
-  font-size: 18px;
+  color:white; 
+  font-size:18px;
   font-weight: bold;
+
 }
 
 .org-backlight {
   /* background-color: #ff4d0129; */
   padding: 30% 0%;
-
+  
   /* border-radius: 50%; */
   /* background: rgb(229, 23, 113); */
   /* background: radial-gradient(#e66465, rgba(255, 100, 100, 0.027)); */
-  /* opacity: 0.5; */
-  filter: drop-shadow(0 0 45px rgb(255, 0, 0));
-  /* background-size: cover; */
+/* opacity: 0.5; */
+filter: drop-shadow(0 0 45px rgb(255, 0, 0));
+/* background-size: cover; */
 }
 
 .score-meter {
-  color: white;
+  color:white;
   margin-bottom: 24%;
 }
 .score-meter h1 {
-  font-size: 25px;
-  font-weight: bold;
+  font-size:25px;
+  font-weight:bold;
 }
 
 .score-meter p {
   color: gray;
 }
+
 
 .start {
   display: block;
@@ -125,4 +122,11 @@ html {
 
 ion-spinner {
   transform: scale(2);
+}
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom{
+  text-align: left;
+  left: 15%;
+  bottom: 0;
 }
