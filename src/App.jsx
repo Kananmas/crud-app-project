@@ -30,6 +30,8 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 import "./App.css";
+import { Slider } from "./pages/Slider";
+import { Result } from "./pages/Result";
 
 setupIonicReact();
 export function App() {
@@ -40,6 +42,24 @@ export function App() {
           <Provider store={store}>
   <Question />
             
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
+            <Route exact path="/signin">
+              <Signin />
+            </Route>
+            <Route exact path="/slider">
+              <Slider />
+            </Route>
+            <Route exact path="/quiz">
+              <Quiz />
+            </Route>
+            <Route exact path="/result">
+              <Result />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/signup" />
+            </Route>
           </Provider>
         </IonRouterOutlet>
       </IonReactRouter>

@@ -9,6 +9,7 @@ export async function addNewUser(username, email) {
             email
         })
         if (!error) {
+            localStorage.setItem("initialized", "true");
             localStorage.setItem("username", username);
         }
     } catch (error) {

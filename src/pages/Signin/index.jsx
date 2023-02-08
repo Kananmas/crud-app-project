@@ -6,20 +6,20 @@ import { getUser } from "../../utils/get-user.utils";
 import { signInUser } from "../../utils/sign-in-user.util";
 import { useIonAlert } from "@ionic/react";
 
-export default function Signin() {
+export function Signin() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const History = useHistory();
 
   const [presentAlert] = useIonAlert();
 
-  const goToQuiz = () => {
-    History.push("/quiz");
+  const goToSlider = () => {
+    History.push("/slider");
   };
 
   useEffect(() => {
     if (!!localStorage.getItem("initialized")) {
-      goToQuiz();
+      goToSlider();
     }
   }, []);
 
@@ -39,15 +39,12 @@ export default function Signin() {
         buttons: ["OK"],
       });
     } else {
-      signInUser(email, password).then(() => {
-        if (!localStorage.getItem("initailized")) {
-          localStorage.setItem("initialized", "true");
+      signInUser(email, password).then((data) => {
+        if (data) {
+          getUser(email);
+          goToSlider();
         }
-        getUser(email);
-        goToQuiz();
       });
-
-      signInUser();
     }
   };
 

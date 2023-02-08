@@ -7,6 +7,7 @@ import { memo } from "react";
 import { useEffect, useState } from "react";
 import { useRandom } from "../../hooks/random.hook";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 // actions
 import { setQuestionsAction } from "../../store/quiz/quiz.actions";
@@ -18,7 +19,6 @@ import { addUnasweredQuestion } from "../../store/quiz/quiz.actions";
 import { Question } from "./components/Question";
 import { If } from "../../components/If";
 import { Else } from "../../components/Else";
-import { Result } from "./components/Result";
 
 const QuestionMemo = memo(Question);
 
@@ -27,10 +27,11 @@ const getQuiz = (store) => {
   return store.quiz;
 };
 
-export default function Quiz() {
+export function Quiz() {
   // redux
   const quiz = useSelector(getQuiz);
   const dispatch = useDispatch();
+  const History = useHistory();
 
   // values we use are stored insied question reducer which names as quiz
   // inside combine reducers
@@ -56,6 +57,13 @@ export default function Quiz() {
         setIsFinished(true);
       }
     }
+
+    if (localStorage.getItem("initialized")) {
+      if (!localStorage.getItem("username")) {
+        localStorage.removeItem("initialized");
+        History.push("/slider");
+      }
+    }
     //fetchs the word list from data base
     const $fetch = fetchWords();
     // variable $fetch returns an promise
@@ -74,18 +82,20 @@ export default function Quiz() {
 
   useEffect(() => {
     if (isFinished) {
-      let data = {
-        id: Math.random().toString(16).slice(2),
-        quiz_date: new Date(),
-        score: score,
-        right_answers_count: rightAnswers.length,
-        wrong_answers_count: wrongAnswers.length,
-        unanswereds_count: unanswereds.length,
-        user_name: localStorage.getItem("username"),
-        fastest_answer: answerRate,
-      };
-
-      setInDataBase(data);
+      if (currentIndex > 0) {
+        let data = {
+          id: Math.random().toString(16).slice(2),
+          quiz_date: new Date(),
+          score: score,
+          right_answers_count: rightAnswers.length,
+          wrong_answers_count: wrongAnswers.length,
+          unanswereds_count: unanswereds.length,
+          user_name: localStorage.getItem("username"),
+          fastest_answer: answerRate,
+        };
+        setInDataBase(data);
+      }
+      History.push("/result");
     }
   }, [isFinished]);
 
@@ -138,12 +148,6 @@ export default function Quiz() {
     if renders a component if a condition is true and else renders it when
     condition is false 
   */
-
-  function trade() {
-    setScore((score) => score - 100);
-    localStorage.removeItem("lastQuizDate");
-    setIsFinished(false);
-  }
   return (
     <>
       <If condition={!isLoading}>
@@ -155,9 +159,6 @@ export default function Quiz() {
             score={score}
           />
         </If>
-        <Else condition={!isFinished}>
-          <Result trade={trade} score={score} />
-        </Else>
       </If>
       <Else condition={!isLoading}>
         <h1>Loading...</h1>
