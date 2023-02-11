@@ -3,6 +3,10 @@ import {
   SET_QUESTIONS,
   ADD_UNANSWERED_QUESTION,
   ADD_WRONG_ANSWER,
+  FINISH_LOADING,
+  START_LOADING,
+  INCREASE_SCORE,
+  DECREASE_SCORE,
 } from "./quiz.constants";
 
 export function setQuestions(payload) {
@@ -31,4 +35,28 @@ export function addWrongAnswer(payload) {
     type: ADD_WRONG_ANSWER,
     payload,
   };
+}
+
+export function finishLoadingAction() {
+  return {
+    type: FINISH_LOADING,
+  }
+}
+
+export function startLoadingAction() {
+  return {
+    type: START_LOADING
+  }
+}
+
+export function incraeseScoreAction() {
+  return {
+    type: INCREASE_SCORE
+  }
+}
+
+export function decreaseScoreAction() {
+  return {
+    type: DECREASE_SCORE
+  }
 }
