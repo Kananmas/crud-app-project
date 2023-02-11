@@ -1,5 +1,4 @@
 // utils
-import { fetchWords } from "./utils/fetch-words.util";
 import { setInDataBase } from "./utils/set-in-database.util";
 import { randomString } from "../../utils/random-string.util";
 
@@ -11,10 +10,14 @@ import { useHistory } from "react-router";
 import { memo } from "react";
 
 // actions
-import { setQuestions } from "../../store/quiz/quiz.actions";
-import { addCorrectAnswer } from "../../store/quiz/quiz.actions";
-import { addWrongAnswer } from "../../store/quiz/quiz.actions";
-import { addUnasweredQuestion } from "../../store/quiz/quiz.actions";
+import {
+  decreaseScoreAction,
+  incraeseScoreAction,
+  addCorrectAnswer,
+  addWrongAnswer,
+  addUnasweredQuestion,
+  startLoadingAction,
+} from "../../store/quiz/quiz.actions";
 
 // components
 import { Question } from "./components/Question";
@@ -23,6 +26,11 @@ import { Else } from "../../components/Else";
 
 // global components
 import { IonSpinner } from "@ionic/react";
+import {
+  storeRightAnswerData,
+  storeUnansweredData,
+  storeWrongAnswerData,
+} from "./utils/store-extradata.util";
 
 const QuestionMemo = memo(Question);
 
@@ -39,21 +47,17 @@ export function Quiz() {
 
   // values we use are stored insied question reducer which names as quiz
   // inside combine reducers
-  const { questions, rightAnswers, wrongAnswers, unanswereds } = quiz;
+  const { questions, loading: isLoading, score } = quiz;
 
   // index of the question
   let [currentIndex, setCurrentIndex] = useState(0);
   let [question, setQuestion] = useState({});
   // random spelling which we show to the user
   let randomWord = useRandom(question, [question, currentIndex]);
-  // variable we use to store the user's score
-  let [score, setScore] = useState(0);
   // fastest time that user answered to a question
   let [answerRate, setAnswerRate] = useState(30);
   let [isFinished, setIsFinished] = useState(false);
-  let [isLoading, setIsLoading] = useState(true);
 
-  // fetch the word's from supabse then set it in our store
   useEffect(() => {
     const lastQuiz = localStorage.getItem("lastQuizDate");
     if (lastQuiz) {
@@ -62,47 +66,23 @@ export function Quiz() {
       }
     }
 
-    if (localStorage.getItem("initialized")) {
-      if (!localStorage.getItem("username")) {
-        localStorage.removeItem("initialized");
-        History.push("/slider");
-      }
-    }
-    //fetchs the word list from data base
-    const $fetch = fetchWords();
-    // variable $fetch returns an promise
-    $fetch
-      .then((arr) => {
-        if (arr.length) {
-          dispatch(setQuestions(arr));
-        }
-        setQuestion(arr[currentIndex]);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(startLoadingAction());
   }, []);
 
   useEffect(() => {
     if (isFinished) {
       if (currentIndex > 0) {
-        let data = {
-          id: randomString(),
-          quiz_date: new Date(),
-          score: score,
-          right_answers_count: rightAnswers.length,
-          wrong_answers_count: wrongAnswers.length,
-          unanswereds_count: unanswereds.length,
-          user_name: localStorage.getItem("username"),
-          fastest_answer: answerRate,
-        };
-        setInDataBase(data);
+        setInDataBase(answerRate);
       }
       History.push("/result");
     }
   }, [isFinished]);
 
+  useEffect(() => {
+    if (questions.length) {
+      setQuestion(questions[currentIndex]);
+    }
+  }, [questions]);
   // fucntion we use to find out of the user's answer was true or not
   function handleAnswer(userAnsewer, userAnswerRate) {
     // checks if shown word has right spelling or not
@@ -112,18 +92,29 @@ export function Quiz() {
     // we set it give user 10 points otherwise we get 10 points from user
     // undefined is for when user dosen't answered the question
     if (userAnsewer !== undefined) {
+      const data = {
+        true_answer: question.rightSpelling,
+        user_answer: randomWord,
+        id: randomString(),
+      };
       if (trueAnswer === userAnsewer) {
-        setScore((score) => score + 10);
-        //dispatch an action that sets the store's rights
+        dispatch(incraeseScoreAction());
+        storeRightAnswerData(data);
         dispatch(addCorrectAnswer(question));
       } else {
-        setScore((score) => score - 5);
-        //dispatch an action that sets the store's wrongs
+        dispatch(decreaseScoreAction());
+        storeWrongAnswerData(data);
         dispatch(addWrongAnswer(question));
       }
     } else {
+      const blank = {
+        question: randomWord,
+        true_answer: question.rightSpelling,
+        id: randomString(),
+      };
+      storeUnansweredData(blank);
       //dispatch an actions that sets the strore's unanswereds
-      dispatch(addUnasweredQuestion(question));
+      dispatch(addUnasweredQuestion(blank));
     }
 
     if (currentIndex <= questions.length - 1) {

@@ -8,7 +8,6 @@ import { IonButton, IonText, IonGrid, IonRow, IonCol } from "@ionic/react";
 
 export function Question(props) {
   const { score, randomWord, handler } = props;
-
   let maxTime = 30;
   let { value, isDone, start, reset, stop } = useTimer(maxTime);
   let userAnswerRate = maxTime - value;
@@ -56,6 +55,18 @@ export function Question(props) {
   useEffect(() => {
     if (randomWord) {
       start();
+    }
+
+    if (localStorage.getItem("initialized")) {
+      if (!localStorage.getItem("username")) {
+        localStorage.clear();
+        History.push("/signup");
+      }
+    }
+
+    if (!localStorage.getItem("username")) {
+      localStorage.clear();
+      History.push("/signup");
     }
   }, [randomWord]);
 

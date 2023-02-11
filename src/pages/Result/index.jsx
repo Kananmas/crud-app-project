@@ -23,7 +23,13 @@ import { updateResultInDatebase } from "./utils/update-result-in-database.util";
 export function Result() {
   const quiz = useSelector((store) => store.quiz);
 
-  const { questions, rightAnswers, wrongAnswers, unanswereds } = quiz;
+  const {
+    questions,
+    rightAnswers,
+    wrongAnswers,
+    unanswereds,
+    score: $score,
+  } = quiz;
 
   // gets the latest score of user  from database and show it
   let [rightAnswersCount, setRightAnswersCount] = useState(0);
@@ -48,7 +54,11 @@ export function Result() {
       setRightAnswersCount(rightAnswers.length);
       setWrongAnswersCount(wrongAnswers.length);
       setUnansweredsCount(unanswereds.length);
+<<<<<<< HEAD
       setScore(rightAnswers.length * 10 - wrongAnswers.length * 5);
+=======
+      setScore($score);
+>>>>>>> main
     }
   }, []);
 

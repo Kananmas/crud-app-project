@@ -19,10 +19,9 @@ html {
 
 .container {
   background-color: #1a1b20;
-  width: 70%;
   position: absolute;
-  left: 15%;
-  right: 15%;
+  width: 100%;
+  padding: 10%;
   text-align: center;
   height: 100vh;
   display: flex;
@@ -38,10 +37,8 @@ html {
   text-align: center;
   height: 100vh;
   background-color: #1a1b20;
-  width: 90%;
+  width: 100%;
   position: absolute;
-  left: 5%;
-  right: 5%;
   text-align: center;
 }
 

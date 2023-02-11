@@ -23,7 +23,6 @@ import styles from "./index.module.css";
 // hooks
 import { useHistory } from "react-router";
 
-
 export function Slider() {
   const History = useHistory();
 
