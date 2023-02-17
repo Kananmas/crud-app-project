@@ -97,7 +97,7 @@ export function Menu() {
               <IonThumbnail className={styles.iconsWrapper} slot="start">
                 <IonIcon icon={person} className={styles.footerIcons}></IonIcon>
               </IonThumbnail>
-              <IonLabel>Zahra mohseni</IonLabel>
+              <IonLabel>{localStorage.getItem("username")}</IonLabel>
               <IonThumbnail className={styles.iconsWrapper} slot="end">
                 <IonIcon
                   icon={logOutOutline}
