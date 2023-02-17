@@ -32,6 +32,8 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 // styles
 import "./App.css";
+import { PreviousRecords } from "./pages/PerviousRecords";
+import { PastResult } from "./pages/PerviousRecords/pages/PastResult";
 
 setupIonicReact();
 export function App() {
@@ -54,6 +56,12 @@ export function App() {
             </Route>
             <Route exact path="/result">
               <Result />
+            </Route>
+            <Route exact path="/previousrecords">
+              <PreviousRecords />
+            </Route>
+            <Route exact path="/pastresult">
+              <PastResult />
             </Route>
             <Route exact path="/">
               <Redirect to="/signup" />

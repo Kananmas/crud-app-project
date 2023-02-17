@@ -17,18 +17,24 @@ import { useIonAlert } from "@ionic/react";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 // utils
-import { getResultFromDatabase } from "./utils/get-result-from-database.util";
-import { updateResultInDatebase } from "./utils/update-result-in-database.util";
+import { getLastResult } from "./utils/get-last-result";
+import { replaceResult } from "./utils/replace-result";
 
 export function Result() {
   const quiz = useSelector((store) => store.quiz);
 
-  const { questions, rightAnswers, wrongAnswers, unanswereds } = quiz;
+  const {
+    questions,
+    rightAnswers,
+    wrongAnswers,
+    unanswereds,
+    score: $score,
+  } = quiz;
 
-  // gets the latest score of user  from database and show it
   let [rightAnswersCount, setRightAnswersCount] = useState(0);
   let [wrongAnswersCount, setWrongAnswersCount] = useState(0);
   let [unansweredsCount, setUnansweredsCount] = useState(0);
+  let [fasterstAnswer, setFastestAnswer] = useState(0);
   let [quizId, setQuizId] = useState("");
   let [score, setScore] = useState(0);
   const [presentAlert] = useIonAlert();
@@ -37,24 +43,27 @@ export function Result() {
   useEffect(() => {
     localStorage.setItem("lastQuizDate", new Date().toDateString());
     if (!questions.length) {
-      getResultFromDatabase({
+      getLastResult({
         setRightAnswersCount,
         setWrongAnswersCount,
         setUnansweredsCount,
         setScore,
         setQuizId,
+        setFastestAnswer,
       });
     } else {
       setRightAnswersCount(rightAnswers.length);
       setWrongAnswersCount(wrongAnswers.length);
       setUnansweredsCount(unanswereds.length);
-      setScore(rightAnswersCount * 10 - wrongAnswersCount * 5);
+      setScore($score);
+      setQuizId(quiz.quizId);
+      setFastestAnswer(quiz.fasterstAnswer);
     }
   }, []);
 
   const TakeAnotherQuiz = () => {
     if (score >= 100) {
-      updateResultInDatebase(quizId, score - 100).then(() => {
+      replaceResult(quizId, score - 100).then(() => {
         localStorage.removeItem("lastQuizDate");
         History.push("/quiz");
       });
@@ -71,6 +80,10 @@ export function Result() {
     History.push("/slider");
   };
 
+  const SeePreviousRecords = () => {
+    History.push("/previousrecords");
+  };
+
   return (
     <div style={{ textAlign: "center" }}>
       <IonCard>
@@ -79,6 +92,10 @@ export function Result() {
         </IonCardHeader>
 
         <IonList>
+          <IonItem>
+            <IonLabel>Score</IonLabel>
+            <IonBadge color="primary">{score}</IonBadge>
+          </IonItem>
           <IonItem>
             <IonLabel>Correct Answers</IonLabel>
             <IonBadge color="success">{rightAnswersCount}</IonBadge>
@@ -91,6 +108,10 @@ export function Result() {
             <IonLabel>Blank</IonLabel>
             <IonBadge color="light">{unansweredsCount}</IonBadge>
           </IonItem>
+          <IonItem>
+            <IonLabel>Fanstest Answer</IonLabel>
+            <IonBadge color="light">{fasterstAnswer}</IonBadge>
+          </IonItem>
         </IonList>
 
         <IonCardContent>
@@ -102,6 +123,9 @@ export function Result() {
         </IonButton>
         <IonButton fill="outline" color="danger" onClick={HandleClickHome}>
           Back
+        </IonButton>
+        <IonButton fill="outline" color="danger" onClick={SeePreviousRecords}>
+          Previous Records
         </IonButton>
       </IonCard>
     </div>

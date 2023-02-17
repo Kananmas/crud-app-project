@@ -2,17 +2,19 @@
 import { useTimer } from "../../../../hooks/timer.hook";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 
 // global components
 import { IonButton, IonText, IonGrid, IonRow, IonCol } from "@ionic/react";
+import { resetAction } from "../../../../store/quiz/quiz.actions";
 
 export function Question(props) {
   const { score, randomWord, handler } = props;
-
   let maxTime = 30;
   let { value, isDone, start, reset, stop } = useTimer(maxTime);
   let userAnswerRate = maxTime - value;
   const History = useHistory();
+  const dispatch = useDispatch();
 
   // this will be called if the user click's on wrong IonButton
   function HandleOnClickRight() {
@@ -26,6 +28,7 @@ export function Question(props) {
 
   function Back() {
     History.push("/slider");
+    dispatch(resetAction());
   }
 
   // this will be called if user click's on wrong IonButton
@@ -56,6 +59,18 @@ export function Question(props) {
   useEffect(() => {
     if (randomWord) {
       start();
+    }
+
+    if (localStorage.getItem("initialized")) {
+      if (!localStorage.getItem("username")) {
+        localStorage.clear();
+        History.push("/signup");
+      }
+    }
+
+    if (!localStorage.getItem("username")) {
+      localStorage.clear();
+      History.push("/signup");
     }
   }, [randomWord]);
 
