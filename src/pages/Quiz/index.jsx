@@ -1,5 +1,5 @@
 // utils
-import { setInDataBase } from "./utils/set-in-database.util";
+import { setInDataBase } from "../../utils/set-in-database.util";
 import { randomString } from "../../utils/random-string.util";
 
 // hooks
@@ -17,6 +17,7 @@ import {
   addWrongAnswer,
   addUnasweredQuestion,
   startLoadingAction,
+  setFastestAnswerAction,
 } from "../../store/quiz/quiz.actions";
 
 // components
@@ -27,6 +28,8 @@ import { Else } from "../../components/Else";
 // global components
 import { IonSpinner } from "@ionic/react";
 import {
+  blankDataCreator,
+  standardDataCreator,
   storeRightAnswerData,
   storeUnansweredData,
   storeWrongAnswerData,
@@ -47,7 +50,16 @@ export function Quiz() {
 
   // values we use are stored insied question reducer which names as quiz
   // inside combine reducers
-  const { questions, loading: isLoading, score } = quiz;
+  const {
+    questions,
+    loading: isLoading,
+    score,
+    wrongAnswers,
+    rightAnswers,
+    unanswereds,
+    quizId,
+    fastestAnswer,
+  } = quiz;
 
   // index of the question
   let [currentIndex, setCurrentIndex] = useState(0);
@@ -65,14 +77,15 @@ export function Quiz() {
         setIsFinished(true);
       }
     }
-
+    // this action will be dispatched when user starts the quiz
+    // redux saga takes updates the store
     dispatch(startLoadingAction());
   }, []);
 
   useEffect(() => {
     if (isFinished) {
       if (currentIndex > 0) {
-        setInDataBase(answerRate);
+        setInDataBase(answerRate, quizId);
       }
       History.push("/result");
     }
@@ -92,29 +105,21 @@ export function Quiz() {
     // we set it give user 10 points otherwise we get 10 points from user
     // undefined is for when user dosen't answered the question
     if (userAnsewer !== undefined) {
-      const data = {
-        true_answer: question.rightSpelling,
-        user_answer: randomWord,
-        id: randomString(),
-      };
+      const data = standardDataCreator(randomWord, question, quizId);
+
       if (trueAnswer === userAnsewer) {
         dispatch(incraeseScoreAction());
-        storeRightAnswerData(data);
-        dispatch(addCorrectAnswer(question));
+
+        dispatch(addCorrectAnswer(data));
       } else {
         dispatch(decreaseScoreAction());
-        storeWrongAnswerData(data);
-        dispatch(addWrongAnswer(question));
+
+        dispatch(addWrongAnswer(data));
       }
     } else {
-      const blank = {
-        question: randomWord,
-        true_answer: question.rightSpelling,
-        id: randomString(),
-      };
-      storeUnansweredData(blank);
+      const data = blankDataCreator(randomWord, question, quizId);
       //dispatch an actions that sets the strore's unanswereds
-      dispatch(addUnasweredQuestion(blank));
+      dispatch(addUnasweredQuestion(data));
     }
 
     if (currentIndex <= questions.length - 1) {
@@ -130,9 +135,11 @@ export function Quiz() {
         setCurrentIndex((index) => index + 1);
         setQuestion(questions[currentIndex + 1]);
       } else {
-        // if user was on last question
-        // if finished the exam our answered the last one
-        // it goes to the Result page
+        // if user finished his quiz we set data to data base
+        storeWrongAnswerData(wrongAnswers);
+        storeRightAnswerData(rightAnswers);
+        storeUnansweredData(unanswereds);
+        dispatch(setFastestAnswerAction(answerRate));
         setIsFinished(true);
       }
     }

@@ -3,7 +3,7 @@ import supabase from "../../../services/supabaseClient";
 const username = localStorage.getItem("username");
 
 
-export async function getResultFromDatabase({ setRightAnswersCount, setUnansweredsCount, setWrongAnswersCount, setScore, setQuizId }) {
+export async function getLastResult({ setRightAnswersCount, setUnansweredsCount, setWrongAnswersCount, setScore, setQuizId, setFastestAnswer }) {
     try {
         const { data, error } = await supabase.from("result-records").select();
         if (!error) {
@@ -13,7 +13,8 @@ export async function getResultFromDatabase({ setRightAnswersCount, setUnanswere
                     setUnansweredsCount(element.unanswereds_count);
                     setWrongAnswersCount(element.wrong_answers_count);
                     setScore(element.score);
-                    setQuizId(element.id);
+                    setQuizId(element.quiz_id);
+                    setFastestAnswer(element.fastest_answer)
                 }
             });
         }
