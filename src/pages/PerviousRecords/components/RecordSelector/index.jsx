@@ -13,9 +13,5 @@ export function RecordSelector({ id, date }) {
     History.push("/pastresult");
   }
 
-  return (
-    <>
-      <Button onClick={HandleOnClick}>{date.slice(0, 10)}</Button>
-    </>
-  );
+  return <Button onClick={HandleOnClick}>{date.slice(0, 10)}</Button>;
 }

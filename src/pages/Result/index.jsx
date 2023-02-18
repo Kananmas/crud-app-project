@@ -9,56 +9,39 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonSpinner,
 } from "@ionic/react";
 
 // hooks
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useIonAlert } from "@ionic/react";
 import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // utils
-import { getLastResult } from "./utils/get-last-result";
 import { replaceResult } from "./utils/replace-result";
+import { loadingPerviousResult } from "../../store/quiz/quiz.actions";
+import { If } from "../../components/If";
+import { Else } from "../../components/Else";
 
 export function Result() {
   const quiz = useSelector((store) => store.quiz);
-
+  const dispatch = useDispatch();
   const {
-    questions,
     rightAnswers,
     wrongAnswers,
     unanswereds,
-    score: $score,
+    score,
+    quizId,
+    fastestAnswer,
+    loading,
   } = quiz;
 
-  let [rightAnswersCount, setRightAnswersCount] = useState(0);
-  let [wrongAnswersCount, setWrongAnswersCount] = useState(0);
-  let [unansweredsCount, setUnansweredsCount] = useState(0);
-  let [fasterstAnswer, setFastestAnswer] = useState(0);
-  let [quizId, setQuizId] = useState("");
-  let [score, setScore] = useState(0);
   const [presentAlert] = useIonAlert();
   const History = useHistory();
 
   useEffect(() => {
     localStorage.setItem("lastQuizDate", new Date().toDateString());
-    if (!questions.length) {
-      getLastResult({
-        setRightAnswersCount,
-        setWrongAnswersCount,
-        setUnansweredsCount,
-        setScore,
-        setQuizId,
-        setFastestAnswer,
-      });
-    } else {
-      setRightAnswersCount(rightAnswers.length);
-      setWrongAnswersCount(wrongAnswers.length);
-      setUnansweredsCount(unanswereds.length);
-      setScore($score);
-      setQuizId(quiz.quizId);
-      setFastestAnswer(quiz.fasterstAnswer);
-    }
+    dispatch(loadingPerviousResult());
   }, []);
 
   const TakeAnotherQuiz = () => {
@@ -85,49 +68,62 @@ export function Result() {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <IonCard>
-        <IonCardHeader>
-          <IonCardTitle>Result</IonCardTitle>
-        </IonCardHeader>
+    <>
+      <If condition={!loading}>
+        <div style={{ textAlign: "center" }}>
+          <IonCard>
+            <IonCardHeader>
+              <IonCardTitle>Result</IonCardTitle>
+            </IonCardHeader>
 
-        <IonList>
-          <IonItem>
-            <IonLabel>Score</IonLabel>
-            <IonBadge color="primary">{score}</IonBadge>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Correct Answers</IonLabel>
-            <IonBadge color="success">{rightAnswersCount}</IonBadge>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Wrong Answers</IonLabel>
-            <IonBadge color="danger">{wrongAnswersCount}</IonBadge>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Blank</IonLabel>
-            <IonBadge color="light">{unansweredsCount}</IonBadge>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Fanstest Answer</IonLabel>
-            <IonBadge color="light">{fasterstAnswer}</IonBadge>
-          </IonItem>
-        </IonList>
+            <IonList>
+              <IonItem>
+                <IonLabel>Score</IonLabel>
+                <IonBadge color="primary">{score}</IonBadge>
+              </IonItem>
+              <IonItem>
+                <IonLabel>Correct Answers</IonLabel>
+                <IonBadge color="success">{rightAnswers.length}</IonBadge>
+              </IonItem>
+              <IonItem>
+                <IonLabel>Wrong Answers</IonLabel>
+                <IonBadge color="danger">{wrongAnswers.length}</IonBadge>
+              </IonItem>
+              <IonItem>
+                <IonLabel>Blank</IonLabel>
+                <IonBadge color="light">{unanswereds.length}</IonBadge>
+              </IonItem>
+              <IonItem>
+                <IonLabel>Fanstest Answer</IonLabel>
+                <IonBadge color="light">{fastestAnswer}</IonBadge>
+              </IonItem>
+            </IonList>
 
-        <IonCardContent>
-          press button to trade point and try again
-        </IonCardContent>
+            <IonCardContent>
+              press button to trade point and try again
+            </IonCardContent>
 
-        <IonButton fill="outline" color="danger" onClick={TakeAnotherQuiz}>
-          Try Again
-        </IonButton>
-        <IonButton fill="outline" color="danger" onClick={HandleClickHome}>
-          Back
-        </IonButton>
-        <IonButton fill="outline" color="danger" onClick={SeePreviousRecords}>
-          Previous Records
-        </IonButton>
-      </IonCard>
-    </div>
+            <IonButton fill="outline" color="danger" onClick={TakeAnotherQuiz}>
+              Try Again
+            </IonButton>
+            <IonButton fill="outline" color="danger" onClick={HandleClickHome}>
+              Back
+            </IonButton>
+            <IonButton
+              fill="outline"
+              color="danger"
+              onClick={SeePreviousRecords}
+            >
+              Previous Records
+            </IonButton>
+          </IonCard>
+        </div>
+      </If>
+      <Else condition={!loading}>
+        <div className="spinner">
+          <IonSpinner name="circular" color="orange"></IonSpinner>
+        </div>
+      </Else>
+    </>
   );
 }

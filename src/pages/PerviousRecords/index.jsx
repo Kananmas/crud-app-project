@@ -1,3 +1,4 @@
+import { IonContent, IonInfiniteScroll } from "@ionic/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoadingRecordsAction } from "../../store/records/records.actions";
@@ -15,12 +16,20 @@ export function PreviousRecords() {
   console.log(records);
 
   return (
-    <div style={{ color: "white" }}>
-      {records.records.map((record, index) => {
-        return (
-          <RecordSelector key={randomString()} id={index} date={record.date} />
-        );
-      })}
-    </div>
+    <IonContent>
+      <div style={{ color: "white" }}>
+        <IonInfiniteScroll>
+          {records.records.map((record, index) => {
+            return (
+              <RecordSelector
+                key={randomString()}
+                id={index}
+                date={record.date}
+              />
+            );
+          })}
+        </IonInfiniteScroll>
+      </div>
+    </IonContent>
   );
 }

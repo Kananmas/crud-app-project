@@ -33,7 +33,7 @@ import "./theme/variables.css";
 // styles
 import "./App.css";
 import { PreviousRecords } from "./pages/PerviousRecords";
-import { PastResult } from "./pages/PerviousRecords/pages/PastResult";
+import { PastResult } from "./pages/PastResult";
 
 setupIonicReact();
 export function App() {
