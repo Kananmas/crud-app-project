@@ -10,7 +10,9 @@ import {
   DECREASE_SCORE,
   RESET,
   GENETRATE_QUIZ_ID,
-  SET_FASTERST_ANSWER
+  SET_FASTERST_ANSWER,
+  SET_QUIZ_TO,
+  LOADING_PERVIOUS_RESULT
 } from "./quiz.constants";
 
 export function setQuestions(payload) {
@@ -85,5 +87,19 @@ export function setFastestAnswerAction(payload) {
   return {
     type: SET_FASTERST_ANSWER,
     payload
+  }
+}
+
+
+export function setQuizToAction(payload) {
+  return {
+    type: SET_QUIZ_TO,
+    payload
+  }
+}
+
+export function loadingPerviousResult() {
+  return {
+    type: LOADING_PERVIOUS_RESULT,
   }
 }

@@ -18,19 +18,8 @@ export function Signup() {
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  const History = useHistory();
 
   const [presentAlert] = useIonAlert();
-
-  const goToSlider = () => {
-    History.push("/slider");
-  };
-
-  useEffect(() => {
-    if (!!localStorage.getItem("initialized")) {
-      goToSlider();
-    }
-  }, []);
 
   const handlerChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -58,7 +47,6 @@ export function Signup() {
           signUpUser(email, password).then((data) => {
             if (data) {
               addNewUser(username, email);
-              goToSlider();
             }
           });
         } else {

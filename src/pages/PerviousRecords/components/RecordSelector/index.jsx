@@ -8,14 +8,9 @@ export function RecordSelector({ id, date }) {
   const History = useHistory();
 
   function HandleOnClick() {
-    console.log(setChosenRecordAction(id));
     dispatch(setChosenRecordAction(id));
     History.push("/pastresult");
   }
 
-  return (
-    <>
-      <Button onClick={HandleOnClick}>{date.slice(0, 10)}</Button>
-    </>
-  );
+  return <Button onClick={HandleOnClick}>{date.slice(0, 10)}</Button>;
 }
