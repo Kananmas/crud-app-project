@@ -8,7 +8,6 @@ export function RecordSelector({ id, date }) {
   const History = useHistory();
 
   function HandleOnClick() {
-    console.log(setChosenRecordAction(id));
     dispatch(setChosenRecordAction(id));
     History.push("/pastresult");
   }

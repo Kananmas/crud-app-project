@@ -34,6 +34,8 @@ import "./theme/variables.css";
 import "./App.css";
 import { PreviousRecords } from "./pages/PerviousRecords";
 import { PastResult } from "./pages/PastResult";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 setupIonicReact();
 export function App() {
@@ -42,30 +44,30 @@ export function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Provider store={store}>
-            <Route exact path="/signup">
+            <ProtectedRoute exact path="/signup">
               <Signup />
-            </Route>
-            <Route exact path="/signin">
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/signin">
               <Signin />
-            </Route>
-            <Route exact path="/slider">
+            </ProtectedRoute>
+            <PrivateRoute path="/slider">
               <Slider />
-            </Route>
-            <Route exact path="/quiz">
+            </PrivateRoute>
+            <PrivateRoute exact path="/quiz">
               <Quiz />
-            </Route>
-            <Route exact path="/result">
+            </PrivateRoute>
+            <PrivateRoute exact path="/result">
               <Result />
-            </Route>
-            <Route exact path="/previousrecords">
+            </PrivateRoute>
+            <PrivateRoute exact path="/previousrecords">
               <PreviousRecords />
-            </Route>
-            <Route exact path="/pastresult">
+            </PrivateRoute>
+            <PrivateRoute exact path="/pastresult">
               <PastResult />
-            </Route>
-            <Route exact path="/">
+            </PrivateRoute>
+            <PrivateRoute exact path="/">
               <Redirect to="/signup" />
-            </Route>
+            </PrivateRoute>
           </Provider>
         </IonRouterOutlet>
       </IonReactRouter>

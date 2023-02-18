@@ -1,12 +1,15 @@
-import { IonContent, IonInfiniteScroll } from "@ionic/react";
+import { IonButton, IonContent, IonInfiniteScroll } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { startLoadingRecordsAction } from "../../store/records/records.actions";
 import { randomString } from "../../utils/random-string.util";
 
 export function PastResult() {
   const records = useSelector((store) => store.records);
   const dispatch = useDispatch();
+  const History = useHistory();
+
   let [selectedRecord, setSelectedRecord] = useState();
 
   useEffect(() => {
@@ -16,6 +19,14 @@ export function PastResult() {
   useEffect(() => {
     setSelectedRecord(records.records[records.chosenRecord]);
   }, [records.records]);
+
+  const HandleOnClickBack = () => {
+    History.go(-1);
+  };
+
+  const HandleOnClickHome = () => {
+    History.push("/slider");
+  };
 
   if (selectedRecord) {
     return (
@@ -52,6 +63,8 @@ export function PastResult() {
               );
             })}
           </div>
+          <IonButton onClick={HandleOnClickBack}>Back</IonButton>
+          <IonButton onClick={HandleOnClickHome}>Home</IonButton>
         </IonInfiniteScroll>
       </IonContent>
     );
