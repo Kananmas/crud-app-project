@@ -1,8 +1,16 @@
+// global components
+
 import { IonButton, IonContent, IonInfiniteScroll } from "@ionic/react";
+
+// hooks
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+
+// actions
 import { startLoadingRecordsAction } from "../../store/records/records.actions";
+// utilis
 import { randomString } from "../../utils/random-string.util";
 
 export function PastResult() {
