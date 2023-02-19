@@ -127,3 +127,21 @@ ion-spinner {
   left: 15%;
   bottom: 0;
 }
+
+.previousResult {
+  color: white;
+  text-align: center;
+  padding: 0% 4%;
+  height: 90vh;
+  
+}
+
+.previousResult h1{
+  margin-bottom: 14px;
+}
+
+.pageButtons {
+  text-align: center;
+  margin-top: 2%;
+  padding: 0% 14%;
+}

@@ -5,8 +5,17 @@ import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 
 // global components
-import { IonButton, IonText, IonGrid, IonRow, IonCol } from "@ionic/react";
+import {
+  IonButton,
+  IonText,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonIcon,
+} from "@ionic/react";
+import { AiOutlineLeft } from "react-icons/ai";
 import { resetAction } from "../../../../store/quiz/quiz.actions";
+import { startLoadingAction } from "../../../../store/quiz/quiz.actions";
 
 export function Question(props) {
   const { score, randomWord, handler } = props;
@@ -23,12 +32,13 @@ export function Question(props) {
   }
 
   function Restart() {
-    History.go(0);
+    dispatch(startLoadingAction());
   }
 
   function Back() {
-    History.push("/slider");
     dispatch(resetAction());
+
+    History.push("/slider");
   }
 
   // this will be called if user click's on wrong IonButton
@@ -60,18 +70,6 @@ export function Question(props) {
     if (randomWord) {
       start();
     }
-
-    if (localStorage.getItem("initialized")) {
-      if (!localStorage.getItem("username")) {
-        localStorage.clear();
-        History.push("/signup");
-      }
-    }
-
-    if (!localStorage.getItem("username")) {
-      localStorage.clear();
-      History.push("/signup");
-    }
   }, [randomWord]);
 
   return (
@@ -80,7 +78,7 @@ export function Question(props) {
         <IonRow>
           <IonCol size="2">
             <div className="col-element" onClick={Back}>
-              {"<"}
+              <AiOutlineLeft />
             </div>
           </IonCol>
           <IonCol size="2" offset="3">

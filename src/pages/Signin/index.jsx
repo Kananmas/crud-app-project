@@ -8,7 +8,7 @@ import { Link, useHistory } from "react-router-dom";
 
 // hooks
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useIonAlert } from "@ionic/react";
 
 // utils
@@ -22,10 +22,6 @@ export function Signin() {
   const History = useHistory();
 
   const [presentAlert] = useIonAlert();
-
-  const goToSlider = () => {
-    History.push("/slider");
-  };
 
   const handlerChangePassword = (e) => {
     setPassword(e.target.value);
@@ -46,7 +42,7 @@ export function Signin() {
       signInUser(email, password).then((data) => {
         if (data) {
           getUser(email);
-          goToSlider();
+          History.push("/slider");
         }
       });
     }
