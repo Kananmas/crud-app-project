@@ -97,7 +97,7 @@ export function Question(props) {
             </IonRow>
           </IonGrid>
           <StyledWordWrapper>
-            <StyledWord>salam{randomWord}</StyledWord>
+            <StyledWord>{randomWord}</StyledWord>
           </StyledWordWrapper>
 
           <StyledScoreWrapper className="score-meter">
