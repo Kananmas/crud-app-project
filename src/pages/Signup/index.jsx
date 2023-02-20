@@ -20,6 +20,13 @@ export function Signup() {
   let [password, setPassword] = useState("");
   const History = useHistory();
 
+  useEffect(() => {
+    if (localStorage.getItem("username")) {
+      console.log("hi");
+      History.push("/slider");
+    }
+  }, []);
+
   const [presentAlert] = useIonAlert();
 
   const handlerChangeUsername = (e) => {

@@ -17,6 +17,7 @@ import {
 import { If } from "../../components/If";
 import { Else } from "../../components/Else";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
+import { PieChart, Pie, Cell } from "recharts";
 
 // hooks
 import { useEffect } from "react";
@@ -76,9 +77,29 @@ export function Result() {
     History.push("/previousrecords");
   };
 
+  const colors = ["red", "grey", "green"];
+
+  const data = [
+    { name: "wrongs", count: wrongAnswers.length },
+    { name: "unanswered", count: unanswereds.length },
+    { name: "rights", count: rightAnswers.length },
+  ];
+
   return (
     <>
       <If condition={!loading}>
+        <PieChart width={393} height={150}>
+          <Pie data={data} dataKey="count" outerRadius={50}>
+            {data.map((entry, index) => {
+              return (
+                <Cell
+                  key={randomString()}
+                  fill={colors[index % colors.length]}
+                />
+              );
+            })}
+          </Pie>
+        </PieChart>
         <IonContent>
           <IonCard>
             <IonCardHeader>
