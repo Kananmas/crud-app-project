@@ -1,12 +1,10 @@
-// global components
-import { IonText } from "@ionic/react";
 // styles
-import styles from "./index.module.css";
+import { StyledIonText, StyledSlideWrapper } from "./index.styled";
 
 export function Slide(props) {
   return (
-    <div className={styles.slideWrapper}>
-      <IonText className={styles.slideContent}>{props.children}</IonText>
-    </div>
+    <StyledSlideWrapper>
+      <StyledIonText>{props.children}</StyledIonText>
+    </StyledSlideWrapper>
   );
 }
