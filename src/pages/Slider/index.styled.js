@@ -1,19 +1,10 @@
 // styled-components
 import styled from "styled-components";
 // global components
-import { IonPage, IonContent, IonButton } from "@ionic/react";
+import { IonButton } from "@ionic/react";
 import { Swiper } from "swiper/react";
 // assets
 import image from "./assets/images/hero-section.png";
-
-export const StyledIonPage = styled(IonPage)`
-  background-color: #191a1f;
-`;
-
-export const StyledIonContent = styled(IonContent)`
-  --background: transparent;
-  color: white;
-`;
 
 export const StyledSwiper = styled(Swiper)`
   --bullet-background-active: #ff4c01;

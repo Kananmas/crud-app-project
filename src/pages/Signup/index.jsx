@@ -15,7 +15,7 @@ import {
   StyledIonContent,
   StyledIonPage,
   StyledLink,
-} from "./index.styled";
+} from "../../App.styled";
 
 export function Signup() {
   let [username, setUsername] = useState("");

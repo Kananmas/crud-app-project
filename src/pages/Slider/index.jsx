@@ -18,13 +18,12 @@ import { useHistory } from "react-router";
 import {
   StyledHowPlayTiltle,
   StyledIonButton,
-  StyledIonContent,
-  StyledIonPage,
   StyledSlideText,
   StyledSlideTitle,
   StyledSpan,
   StyledSwiper,
 } from "./index.styled";
+import { StyledIonContent, StyledIonPage } from "../../App.styled";
 
 export function Slider() {
   const History = useHistory();
