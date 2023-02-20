@@ -18,6 +18,14 @@ export function Signup() {
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  const History = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem("username")) {
+      console.log("hi");
+      History.push("/slider");
+    }
+  }, []);
 
   const [presentAlert] = useIonAlert();
 
@@ -47,6 +55,7 @@ export function Signup() {
           signUpUser(email, password).then((data) => {
             if (data) {
               addNewUser(username, email);
+              History.push("/slider");
             }
           });
         } else {

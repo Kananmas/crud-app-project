@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { Button } from "../../../../components/Button";
+import { IonButton } from "@ionic/react";
 import { setChosenRecordAction } from "../../../../store/records/records.actions";
 
 export function RecordSelector({ id, date }) {
@@ -12,5 +12,14 @@ export function RecordSelector({ id, date }) {
     History.push("/pastresult");
   }
 
-  return <Button onClick={HandleOnClick}>{date.slice(0, 10)}</Button>;
+  return (
+    <IonButton
+      size="default"
+      expand="block"
+      color="orange"
+      onClick={HandleOnClick}
+    >
+      {date.slice(0, 10)}
+    </IonButton>
+  );
 }

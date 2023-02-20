@@ -1,16 +1,23 @@
 // global components
 import {
+  IonAccordion,
+  IonAccordionGroup,
   IonBadge,
-  IonItem,
-  IonLabel,
-  IonList,
   IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonSpinner,
+  IonContent,
+  IonInfiniteScroll,
+  IonItem,
+  IonLabel,
+  IonList,
 } from "@ionic/react";
+import { If } from "../../components/If";
+import { Else } from "../../components/Else";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
+import { PieChart, Pie, Cell } from "recharts";
 
 // hooks
 import { useEffect } from "react";
@@ -19,9 +26,11 @@ import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 // utils
 import { replaceResult } from "./utils/replace-result";
-import { loadingPerviousResult } from "../../store/quiz/quiz.actions";
-import { If } from "../../components/If";
-import { Else } from "../../components/Else";
+import {
+  loadingPerviousResult,
+  resetAction,
+} from "../../store/quiz/quiz.actions";
+import { randomString } from "../../utils/random-string.util";
 
 export function Result() {
   const quiz = useSelector((store) => store.quiz);
@@ -50,6 +59,7 @@ export function Result() {
         localStorage.removeItem("lastQuizDate");
         History.push("/quiz");
       });
+      dispatch(resetAction());
     } else {
       presentAlert({
         header: "Alert",
@@ -67,10 +77,30 @@ export function Result() {
     History.push("/previousrecords");
   };
 
+  const colors = ["red", "grey", "green"];
+
+  const data = [
+    { name: "wrongs", count: wrongAnswers.length },
+    { name: "unanswered", count: unanswereds.length },
+    { name: "rights", count: rightAnswers.length },
+  ];
+
   return (
     <>
       <If condition={!loading}>
-        <div style={{ textAlign: "center" }}>
+        <PieChart width={393} height={150}>
+          <Pie data={data} dataKey="count" outerRadius={50}>
+            {data.map((entry, index) => {
+              return (
+                <Cell
+                  key={randomString()}
+                  fill={colors[index % colors.length]}
+                />
+              );
+            })}
+          </Pie>
+        </PieChart>
+        <IonContent>
           <IonCard>
             <IonCardHeader>
               <IonCardTitle>Result</IonCardTitle>
@@ -91,38 +121,110 @@ export function Result() {
               </IonItem>
               <IonItem>
                 <IonLabel>Blank</IonLabel>
-                <IonBadge color="light">{unanswereds.length}</IonBadge>
+                <IonBadge color="warning">{unanswereds.length}</IonBadge>
               </IonItem>
               <IonItem>
                 <IonLabel>Fanstest Answer</IonLabel>
-                <IonBadge color="light">{fastestAnswer}</IonBadge>
+                <IonBadge color="tertiary">{fastestAnswer}</IonBadge>
               </IonItem>
             </IonList>
 
             <IonCardContent>
-              press button to trade point and try again
+              press Try again to trade point and have another go
             </IonCardContent>
-
-            <IonButton fill="outline" color="danger" onClick={TakeAnotherQuiz}>
-              Try Again
-            </IonButton>
-            <IonButton fill="outline" color="danger" onClick={HandleClickHome}>
-              Back
-            </IonButton>
-            <IonButton
-              fill="outline"
-              color="danger"
-              onClick={SeePreviousRecords}
-            >
-              Previous Records
-            </IonButton>
           </IonCard>
-        </div>
+
+          <IonInfiniteScroll>
+            <IonAccordionGroup>
+              <IonAccordion value="first">
+                <IonItem slot="header" color="light">
+                  Correct Answers
+                </IonItem>
+                {rightAnswers.map((element) => {
+                  return (
+                    <div
+                      className="ion-padding"
+                      slot="content"
+                      key={randomString()}
+                    >
+                      True answer was<IonBadge>{element.true_answer}</IonBadge>{" "}
+                      your answer was{" "}
+                      <IonBadge color="success">{element.user_answer}</IonBadge>
+                    </div>
+                  );
+                })}
+              </IonAccordion>
+            </IonAccordionGroup>
+            <IonAccordionGroup>
+              <IonAccordion value="second">
+                <IonItem slot="header" color="light">
+                  Wrong Answers
+                </IonItem>
+                {wrongAnswers.map((element) => {
+                  return (
+                    <div
+                      className="ion-padding"
+                      slot="content"
+                      key={randomString()}
+                    >
+                      True answer was <IonBadge>{element.true_answer}</IonBadge>{" "}
+                      your answer was{" "}
+                      <IonBadge color="danger">{element.user_answer}</IonBadge>
+                    </div>
+                  );
+                })}
+              </IonAccordion>
+            </IonAccordionGroup>
+            <IonAccordionGroup>
+              <IonAccordion value="third">
+                <IonItem slot="header" color="light">
+                  Blank Answers
+                </IonItem>
+                {unanswereds.map((element) => {
+                  return (
+                    <div
+                      className="ion-padding"
+                      slot="content"
+                      key={randomString()}
+                    >
+                      question was <IonBadge>{element.question}</IonBadge> true
+                      answer was <IonBadge>{element.true_answer}</IonBadge>
+                    </div>
+                  );
+                })}
+              </IonAccordion>
+            </IonAccordionGroup>
+            <div className="pageButtons">
+              <IonButton
+                expand="block"
+                fill="outline"
+                color="danger"
+                onClick={TakeAnotherQuiz}
+              >
+                Try Again
+              </IonButton>
+              <IonButton
+                expand="block"
+                fill="outline"
+                color="danger"
+                onClick={HandleClickHome}
+              >
+                Back
+              </IonButton>
+              <IonButton
+                expand="block"
+                fill="outline"
+                color="danger"
+                onClick={SeePreviousRecords}
+              >
+                Previous Records
+              </IonButton>
+            </div>
+          </IonInfiniteScroll>
+        </IonContent>
       </If>
       <Else condition={!loading}>
-        <div className="spinner">
-          <IonSpinner name="circular" color="orange"></IonSpinner>
-        </div>
+        <LoadingSpinner />
       </Else>
     </>
   );

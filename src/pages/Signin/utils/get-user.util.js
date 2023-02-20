@@ -10,11 +10,9 @@ export async function getUser(email) {
                 if (currentData.email === email) {
                     if (!localStorage.getItem("username")) {
                         localStorage.setItem("username", currentData.user_name)
+                        localStorage.setItem("initialized", "true");
                     }
                 }
-            }
-            if (!localStorage.getItem("initailized")) {
-                localStorage.setItem("initialized", "true");
             }
         }
     } catch (error) {

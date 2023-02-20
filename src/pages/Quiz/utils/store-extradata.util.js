@@ -42,7 +42,7 @@ export function standardDataCreator(randomWord, question, quiz_id) {
         user_name: localStorage.getItem('username'),
         true_answer: question.rightSpelling,
         user_answer: randomWord,
-        id: randomString(),
+        id: randomString() + randomString(),
         quiz_id
     }
 }
@@ -53,7 +53,7 @@ export function blankDataCreator(randomWord, question, quiz_id) {
     return {
         question: randomWord,
         true_answer: question.rightSpelling,
-        id: randomString(),
+        id: randomString() + randomString(),
         date: new Date().toDateString(),
         user_name: localStorage.getItem('username')
         , quiz_id

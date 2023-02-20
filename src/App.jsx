@@ -8,6 +8,10 @@ import { Signin } from "./pages/Signin";
 import { Signup } from "./pages/Signup";
 import { Slider } from "./pages/Slider";
 import { Result } from "./pages/Result";
+import { PreviousRecords } from "./pages/PerviousRecords";
+import { PastResult } from "./pages/PastResult";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 // redux
 import { store } from "./store";
 import { Provider } from "react-redux";
@@ -32,10 +36,6 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 // styles
 import "./App.css";
-import { PreviousRecords } from "./pages/PerviousRecords";
-import { PastResult } from "./pages/PastResult";
-import { PrivateRoute } from "./components/PrivateRoute";
-import { ProtectedRoute } from "./components/ProtectedRoute";
 
 setupIonicReact();
 export function App() {
@@ -44,15 +44,15 @@ export function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Provider store={store}>
-            <ProtectedRoute exact path="/signup">
+            <Route path="/signup">
               <Signup />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/signin">
+            </Route>
+            <Route path="/signin">
               <Signin />
-            </ProtectedRoute>
-            <PrivateRoute path="/slider">
+            </Route>
+            <Route exact path="/slider">
               <Slider />
-            </PrivateRoute>
+            </Route>
             <PrivateRoute exact path="/quiz">
               <Quiz />
             </PrivateRoute>

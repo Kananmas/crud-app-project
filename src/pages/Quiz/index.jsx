@@ -1,6 +1,5 @@
 // utils
 import { setInDataBase } from "../../utils/set-in-database.util";
-import { randomString } from "../../utils/random-string.util";
 
 // hooks
 import { useEffect, useState } from "react";
@@ -26,7 +25,7 @@ import { If } from "../../components/If";
 import { Else } from "../../components/Else";
 
 // global components
-import { IonSpinner } from "@ionic/react";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 import {
   blankDataCreator,
   standardDataCreator,
@@ -163,9 +162,7 @@ export function Quiz() {
         </If>
       </If>
       <Else condition={!isLoading}>
-        <div className="spinner">
-          <IonSpinner name="circular" color="orange"></IonSpinner>
-        </div>
+        <LoadingSpinner />
       </Else>
     </>
   );
