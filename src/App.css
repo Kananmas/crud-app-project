@@ -12,48 +12,136 @@ code {
     monospace;
 }
 
-.Task {
-  background-color: gainsboro;
-  border-radius: 8px;
-  padding: 2%;
-  margin: 4px;
-  text-align: left;
+html {
+  background-color: #1a1b20;
 }
 
-.Task .status {
-  margin-left: 12.5%;
-  margin-right: 12.5%;
-}
 
-.Task button {
-  float: right;
-  margin-left: 4px;
-}
-
-body {
-  /* width: 50%;
+.container {
+  background-color: #1a1b20;
   position: absolute;
-  left: 25%;
-  right: 25%;
-  text-align: center; */
+  width: 100%;
+  padding: 10%;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.orange {
+  color: #ff4c01;
 }
 
-.status_button {
-  background-color: rgb(132, 237, 20);
-  border-radius: 8px;
-  border: 1px solid black;
+
+.question{
+  text-align: center;
+  height: 100vh;
+  background-color: #1a1b20;
+  width: 100%;
+  position: absolute;
+  text-align: center;
 }
 
-.delete_button {
-  background-color: red;
-  border-radius: 8px;
-  border: 1px solid black;
+.part {
+  height: 35vh;
+  padding: 25% 0%;
+  color: white;
+  
+}
+.part h1 {
+  filter: drop-shadow(0 0 58px rgb(255, 0, 0));
+  font-size:35px;
+  font-weight:bold;
 }
 
+.timer{
+ color: yellow;
+ padding: 2px;
+ background-color: #404040;
+ border-radius: 8px;
+ font-weight: bold;
+}
+
+.col-element {
+  font-size: 8px;
+  color:white; 
+  font-size:18px;
+  font-weight: bold;
+
+}
+
+.org-backlight {
+  /* background-color: #ff4d0129; */
+  padding: 30% 0%;
+  
+  /* border-radius: 50%; */
+  /* background: rgb(229, 23, 113); */
+  /* background: radial-gradient(#e66465, rgba(255, 100, 100, 0.027)); */
+/* opacity: 0.5; */
+filter: drop-shadow(0 0 45px rgb(255, 0, 0));
+/* background-size: cover; */
+}
+
+.score-meter {
+  color:white;
+  margin-bottom: 24%;
+}
+.score-meter h1 {
+  font-size:25px;
+  font-weight:bold;
+}
+
+.score-meter p {
+  color: gray;
+}
+
+
+.start {
+  display: block;
+  margin: 20px auto;
+  width: 80%;
+  height: 60px;
+  font-weight: 700;
+  --background: #262424;
+  --box-shadow: none;
+  --border-radius: 16px;
+}
+
+.spinner {
+  width: 90%;
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  text-align: center;
+  top: 50%;
+  bottom: 50%;
+}
+
+ion-spinner {
+  transform: scale(2);
+}
 .swiper-horizontal > .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal,
 .swiper-pagination-custom{
   text-align: left;
   left: 15%;
   bottom: 0;
+}
+
+.previousResult {
+  color: white;
+  text-align: center;
+  padding: 0% 4%;
+  height: 90vh;
+  
+}
+
+.previousResult h1{
+  margin-bottom: 14px;
+}
+
+.pageButtons {
+  text-align: center;
+  margin-top: 2%;
+  padding: 0% 14%;
 }

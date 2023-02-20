@@ -1,4 +1,6 @@
+// global components
 import { IonText } from "@ionic/react";
+// styles
 import styles from "./index.module.css";
 
 export function Slide(props) {

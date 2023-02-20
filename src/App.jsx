@@ -3,8 +3,18 @@ import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 // components
-import { Home } from "./pages/Home";
+import { Quiz } from "./pages/Quiz";
+import { Signin } from "./pages/Signin";
+import { Signup } from "./pages/Signup";
 import { Slider } from "./pages/Slider";
+import { Result } from "./pages/Result";
+import { PreviousRecords } from "./pages/PerviousRecords";
+import { PastResult } from "./pages/PastResult";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+// redux
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -33,15 +43,32 @@ export function App() {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/slider">
-            <Slider />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
+          <Provider store={store}>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/signin">
+              <Signin />
+            </Route>
+            <Route exact path="/slider">
+              <Slider />
+            </Route>
+            <PrivateRoute exact path="/quiz">
+              <Quiz />
+            </PrivateRoute>
+            <PrivateRoute exact path="/result">
+              <Result />
+            </PrivateRoute>
+            <PrivateRoute exact path="/previousrecords">
+              <PreviousRecords />
+            </PrivateRoute>
+            <PrivateRoute exact path="/pastresult">
+              <PastResult />
+            </PrivateRoute>
+            <PrivateRoute exact path="/">
+              <Redirect to="/signup" />
+            </PrivateRoute>
+          </Provider>
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
