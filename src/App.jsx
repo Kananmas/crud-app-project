@@ -44,12 +44,12 @@ export function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Provider store={store}>
-            <ProtectedRoute path="/signup">
+            <Route path="/signup">
               <Signup />
-            </ProtectedRoute>
-            <ProtectedRoute path="/signin">
+            </Route>
+            <Route path="/signin">
               <Signin />
-            </ProtectedRoute>
+            </Route>
             <Route exact path="/slider">
               <Slider />
             </Route>

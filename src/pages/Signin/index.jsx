@@ -21,6 +21,12 @@ export function Signin() {
   let [password, setPassword] = useState("");
   const History = useHistory();
 
+  useEffect(() => {
+    if (localStorage.getItem("username")) {
+      History.push("/slider");
+    }
+  }, []);
+
   const [presentAlert] = useIonAlert();
 
   const handlerChangePassword = (e) => {

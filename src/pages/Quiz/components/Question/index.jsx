@@ -32,6 +32,7 @@ export function Question(props) {
   }
 
   function Restart() {
+    dispatch(resetAction());
     dispatch(startLoadingAction());
   }
 
