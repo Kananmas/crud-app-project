@@ -13,10 +13,8 @@ import { useHistory } from "react-router";
 import { startLoadingRecordsAction } from "../../store/records/records.actions";
 // utilis
 import { randomString } from "../../utils/random-string.util";
-
-
-
-import { PageButtons, ResultContainer, StyledIonText } from "./index.style";
+// styles
+import { PageButtons, ResultContainer, StyledIonText } from "./index.styled";
 
 export function PreviousRecords() {
   const records = useSelector((store) => store.records);
