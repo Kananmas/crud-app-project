@@ -12,7 +12,8 @@ import {
   GENETRATE_QUIZ_ID,
   SET_FASTERST_ANSWER,
   SET_QUIZ_TO,
-  LOADING_PERVIOUS_RESULT
+  LOADING_PERVIOUS_RESULT,
+  SET_ALL_DATA
 } from "./quiz.constants";
 
 export function setQuestions(payload) {
@@ -101,5 +102,11 @@ export function setQuizToAction(payload) {
 export function loadingPerviousResult() {
   return {
     type: LOADING_PERVIOUS_RESULT,
+  }
+}
+
+export function setAllDataAction() {
+  return {
+    type: SET_ALL_DATA
   }
 }

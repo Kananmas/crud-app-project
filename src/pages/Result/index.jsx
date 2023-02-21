@@ -50,20 +50,22 @@ export function Result() {
 
   useEffect(() => {
     localStorage.setItem("lastQuizDate", new Date().toDateString());
-    dispatch(loadingPerviousResult());
+    if (!quiz.questions.length) {
+      dispatch(loadingPerviousResult());
+    }
   }, []);
 
   const TakeAnotherQuiz = () => {
     if (score >= 100) {
+      dispatch(resetAction());
       replaceResult(quizId, score - 100).then(() => {
         localStorage.removeItem("lastQuizDate");
         History.push("/quiz");
       });
-      dispatch(resetAction());
     } else {
       presentAlert({
         header: "Alert",
-        message: "Sorry!! you don't have enough score",
+        message: "Sorry!! you don't have enough points",
         buttons: ["OK"],
       });
     }
@@ -77,7 +79,7 @@ export function Result() {
     History.push("/previousrecords");
   };
 
-  const colors = ["red", "grey", "green"];
+  const colors = ["red", "yellow", "green"];
 
   const data = [
     { name: "wrongs", count: wrongAnswers.length },
@@ -101,40 +103,57 @@ export function Result() {
           </Pie>
         </PieChart>
         <IonContent>
-          <IonCard>
-            <IonCardHeader>
-              <IonCardTitle>Result</IonCardTitle>
-            </IonCardHeader>
-
-            <IonList>
-              <IonItem>
-                <IonLabel>Score</IonLabel>
-                <IonBadge color="primary">{score}</IonBadge>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Correct Answers</IonLabel>
-                <IonBadge color="success">{rightAnswers.length}</IonBadge>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Wrong Answers</IonLabel>
-                <IonBadge color="danger">{wrongAnswers.length}</IonBadge>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Blank</IonLabel>
-                <IonBadge color="warning">{unanswereds.length}</IonBadge>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Fanstest Answer</IonLabel>
-                <IonBadge color="tertiary">{fastestAnswer}</IonBadge>
-              </IonItem>
-            </IonList>
-
-            <IonCardContent>
-              press Try again to trade point and have another go
-            </IonCardContent>
-          </IonCard>
-
           <IonInfiniteScroll>
+            <PieChart width={393} height={190}>
+              <Pie
+                data={data}
+                dataKey="count"
+                outerRadius={70}
+                innerRadius={50}
+              >
+                {data.map((entry, index) => {
+                  return (
+                    <Cell
+                      key={randomString()}
+                      fill={colors[index % colors.length]}
+                    />
+                  );
+                })}
+              </Pie>
+            </PieChart>
+            <IonCard>
+              <IonCardHeader>
+                <IonCardTitle>Result</IonCardTitle>
+              </IonCardHeader>
+
+              <IonList>
+                <IonItem>
+                  <IonLabel>Score</IonLabel>
+                  <IonBadge color="primary">{score}</IonBadge>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Correct Answers</IonLabel>
+                  <IonBadge color="success">{rightAnswers.length}</IonBadge>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Wrong Answers</IonLabel>
+                  <IonBadge color="danger">{wrongAnswers.length}</IonBadge>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Blank</IonLabel>
+                  <IonBadge color="warning">{unanswereds.length}</IonBadge>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Fanstest Answer</IonLabel>
+                  <IonBadge color="tertiary">{fastestAnswer}.s</IonBadge>
+                </IonItem>
+              </IonList>
+
+              <IonCardContent>
+                press Try again to trade point and have another go
+              </IonCardContent>
+            </IonCard>
+
             <IonAccordionGroup>
               <IonAccordion value="first">
                 <IonItem slot="header" color="light">
@@ -201,7 +220,7 @@ export function Result() {
                 color="danger"
                 onClick={TakeAnotherQuiz}
               >
-                Try Again
+                Play Again (costs 100 points)
               </IonButton>
               <IonButton
                 expand="block"
