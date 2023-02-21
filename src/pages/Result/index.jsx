@@ -14,23 +14,24 @@ import {
   IonLabel,
   IonList,
 } from "@ionic/react";
+import { PieChart, Pie, Cell } from "recharts";
+// components
 import { If } from "../../components/If";
 import { Else } from "../../components/Else";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
-import { PieChart, Pie, Cell } from "recharts";
-
 // hooks
 import { useEffect } from "react";
 import { useIonAlert } from "@ionic/react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 // utils
-import { replaceResult } from "./utils/replace-result";
+import { replaceResult } from "./utils/replace-result.util";
+import { randomString } from "../../utils/random-string.util";
+// actions
 import {
   loadingPerviousResult,
   resetAction,
 } from "../../store/quiz/quiz.actions";
-import { randomString } from "../../utils/random-string.util";
 
 export function Result() {
   const quiz = useSelector((store) => store.quiz);

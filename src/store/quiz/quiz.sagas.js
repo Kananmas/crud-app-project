@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects"
-import { getLastResult } from "../../pages/Result/utils/get-last-result";
+import { getLastResult } from "../../pages/Result/utils/get-last-result.util";
 import { fetchWords } from "../../utils/fetch-words.util";
 import { setQuestions, finishLoadingAction, genereateQuizIdAction, setQuizToAction } from "./quiz.actions"
 

@@ -1,24 +1,18 @@
 // global components
-
 import { IonButton, IonContent, IonInfiniteScroll } from "@ionic/react";
+// components
 import { If } from "../../components/If";
-
+import { Else } from "../../components/Else";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
+import { RecordSelector } from "./components/RecordSelector";
 // hooks
-
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
 // action
-
 import { startLoadingRecordsAction } from "../../store/records/records.actions";
-
 // utilis
-
 import { randomString } from "../../utils/random-string.util";
-import { RecordSelector } from "./components/RecordSelector";
-import { Else } from "../../components/Else";
-import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 export function PreviousRecords() {
   const records = useSelector((store) => store.records);

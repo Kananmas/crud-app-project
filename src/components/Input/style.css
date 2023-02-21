@@ -1,4 +1,6 @@
 ion-item.custom {
-  --background: #1a1b20;
+  --background: #2e271a;
   --highlight-color-focused: #ff4c01;
+  margin: 10px 0;
+  border-radius: 16px;
 }

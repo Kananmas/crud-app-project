@@ -1,5 +1,4 @@
 // global components
-
 import {
   IonAccordion,
   IonAccordionGroup,
@@ -18,14 +17,13 @@ import {
 import { PieChart, Pie, Cell } from "recharts";
 
 // hooks
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 // actions
 import { startLoadingRecordsAction } from "../../store/records/records.actions";
-// utilis
+// utils
 import { randomString } from "../../utils/random-string.util";
 
 export function PastResult() {
