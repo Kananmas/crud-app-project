@@ -14,6 +14,10 @@ import { startLoadingRecordsAction } from "../../store/records/records.actions";
 // utilis
 import { randomString } from "../../utils/random-string.util";
 
+
+
+import { PageButtons, ResultContainer, StyledIonText } from "./index.style";
+
 export function PreviousRecords() {
   const records = useSelector((store) => store.records);
   const dispatch = useDispatch();
@@ -35,8 +39,10 @@ export function PreviousRecords() {
     <>
       <If condition={!records.loading}>
         <IonContent>
-          <div className="previousResult">
-            <h1>Previous Records</h1>
+          <ResultContainer>
+            <StyledIonText>
+              <h1>Previous Records</h1>
+            </StyledIonText>
             <IonInfiniteScroll>
               {records.records.map((record, index) => {
                 return (
@@ -47,24 +53,24 @@ export function PreviousRecords() {
                   />
                 );
               })}
+              <PageButtons>
+                <IonButton
+                  color="danger"
+                  fill="outline"
+                  onClick={HandleOnClickBack}
+                >
+                  Back
+                </IonButton>
+                <IonButton
+                  fill="outline"
+                  color="danger"
+                  onClick={HandleOnClickHome}
+                >
+                  Home
+                </IonButton>
+              </PageButtons>
             </IonInfiniteScroll>
-          </div>
-          <div className="pageButtons">
-            <IonButton
-              color="danger"
-              fill="outline"
-              onClick={HandleOnClickBack}
-            >
-              Back
-            </IonButton>
-            <IonButton
-              fill="outline"
-              color="danger"
-              onClick={HandleOnClickHome}
-            >
-              Home
-            </IonButton>
-          </div>
+          </ResultContainer>
         </IonContent>
       </If>
       <Else condition={!records.loading}>

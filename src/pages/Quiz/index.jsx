@@ -12,6 +12,7 @@ import {
   addUnasweredQuestion,
   startLoadingAction,
   setFastestAnswerAction,
+  setAllDataAction,
 } from "../../store/quiz/quiz.actions";
 // components
 import { Question } from "./components/Question";
@@ -23,10 +24,7 @@ import { setInDataBase } from "../../utils/set-in-database.util";
 import {
   blankDataCreator,
   standardDataCreator,
-  storeRightAnswerData,
-  storeUnansweredData,
-  storeWrongAnswerData,
-} from "./utils/store-extra-data.util";
+} from "./utils/data-creators.util";
 
 import { memo } from "react";
 const QuestionMemo = memo(Question);
@@ -44,16 +42,7 @@ export function Quiz() {
 
   // values we use are stored insied question reducer which names as quiz
   // inside combine reducers
-  const {
-    questions,
-    loading: isLoading,
-    score,
-    wrongAnswers,
-    rightAnswers,
-    unanswereds,
-    quizId,
-    fastestAnswer,
-  } = quiz;
+  const { questions, loading: isLoading, score, quizId } = quiz;
 
   // index of the question
   let [currentIndex, setCurrentIndex] = useState(0);
@@ -78,9 +67,6 @@ export function Quiz() {
 
   useEffect(() => {
     if (isFinished) {
-      if (currentIndex > 0) {
-        setInDataBase(answerRate, quizId);
-      }
       History.push("/result");
     }
   }, [isFinished]);
@@ -122,6 +108,7 @@ export function Quiz() {
       // to the new answer rate
       if (userAnswerRate < answerRate) {
         setAnswerRate(userAnswerRate);
+        dispatch(setFastestAnswerAction(answerRate));
       }
       if (currentIndex < questions.length - 1) {
         // if user is not solving the last question then
@@ -130,10 +117,7 @@ export function Quiz() {
         setQuestion(questions[currentIndex + 1]);
       } else {
         // if user finished his quiz we set data to data base
-        storeWrongAnswerData(wrongAnswers);
-        storeRightAnswerData(rightAnswers);
-        storeUnansweredData(unanswereds);
-        dispatch(setFastestAnswerAction(answerRate));
+        dispatch(setAllDataAction());
         setIsFinished(true);
       }
     }

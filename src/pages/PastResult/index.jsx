@@ -49,7 +49,7 @@ export function PastResult() {
     History.push("/slider");
   };
 
-  const colors = ["red", "grey", "green"];
+  const colors = ["red", "yellow", "green"];
 
   const data = [
     {
@@ -69,20 +69,25 @@ export function PastResult() {
   if (selectedRecord) {
     return (
       <>
-        <PieChart width={393} height={200}>
-          <Pie data={data} dataKey="count" outerRadius={80}>
-            {data.map((entry, index) => {
-              return (
-                <Cell
-                  key={randomString()}
-                  fill={colors[index % colors.length]}
-                />
-              );
-            })}
-          </Pie>
-        </PieChart>
         <IonContent>
           <IonInfiniteScroll>
+            <PieChart width={393} height={200}>
+              <Pie
+                data={data}
+                dataKey="count"
+                outerRadius={80}
+                innerRadius={60}
+              >
+                {data.map((entry, index) => {
+                  return (
+                    <Cell
+                      key={randomString()}
+                      fill={colors[index % colors.length]}
+                    />
+                  );
+                })}
+              </Pie>
+            </PieChart>
             <IonCard>
               <IonCardHeader>
                 <IonCardTitle>
@@ -116,7 +121,7 @@ export function PastResult() {
                   <IonItem>
                     <IonLabel>Fastest Answer</IonLabel>
                     <IonBadge color="tertiary">
-                      {selectedRecord.fastestAnswer}
+                      {selectedRecord.fastestAnswer}.s
                     </IonBadge>
                   </IonItem>
                 </IonList>
