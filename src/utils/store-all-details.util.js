@@ -7,12 +7,12 @@ export async function storeAllDetails() {
     const quiz = store.getState().quiz;
     const { wrongAnswers,
         rightAnswers,
-        unanswereds, fastestAnswer, quizId } = quiz
+        unanswereds } = quiz
     try {
         await supabase.from('true-answers').insert(rightAnswers)
         await supabase.from('blanks').insert(unanswereds);
         await supabase.from('wrong-answers').insert(wrongAnswers)
-        setInDataBase(fastestAnswer, quizId);
+        setInDataBase();
     } catch (error) {
         console.log(error.message)
     }

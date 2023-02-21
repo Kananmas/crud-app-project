@@ -26,12 +26,11 @@ import { useIonAlert } from "@ionic/react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 // utils
-import { replaceResult } from "./utils/replace-result.util";
 import { randomString } from "../../utils/random-string.util";
 // actions
 import {
   loadingPerviousResult,
-  resetAction,
+  tradeScoreAction,
 } from "../../store/quiz/quiz.actions";
 // styles
 import { StyledPageButtons } from "../../App.styled";
@@ -44,7 +43,6 @@ export function Result() {
     wrongAnswers,
     unanswereds,
     score,
-    quizId,
     fastestAnswer,
     loading,
   } = quiz;
@@ -59,15 +57,11 @@ export function Result() {
     }
   }, []);
 
-  console.log(quiz);
-
   const TakeAnotherQuiz = () => {
     if (score >= 100) {
-      dispatch(resetAction());
-      replaceResult(quizId, score - 100).then(() => {
-        localStorage.removeItem("lastQuizDate");
-        History.push("/quiz");
-      });
+      localStorage.removeItem("lastQuizDate");
+      dispatch(tradeScoreAction());
+      History.push("/quiz");
     } else {
       presentAlert({
         header: "Alert",
@@ -99,7 +93,7 @@ export function Result() {
         <IonPage>
           <IonContent>
             <IonInfiniteScroll>
-              <PieChart width={393} height={190}>
+              <PieChart width={393} height={150}>
                 <Pie
                   data={data}
                   dataKey="count"

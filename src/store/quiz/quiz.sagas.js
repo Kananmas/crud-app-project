@@ -1,13 +1,16 @@
 import { call, put } from "redux-saga/effects";
 import { getLastResult } from "../../utils/get-last-result.util";
 import { fetchWords } from "../../utils/fetch-words.util";
-import { storeAllDetails } from "../../utils/store-extra-data.util";
+import { storeAllDetails } from "../../utils/store-all-details.util";
 import {
   setQuestions,
   finishLoadingAction,
   genereateQuizIdAction,
   setQuizToAction,
+  resetAction,
 } from "./quiz.actions";
+import { updateResult } from "../../utils/update-result.util";
+import { delay } from "redux-saga/effects";
 
 export function* quizSaga() {
   try {
@@ -35,5 +38,17 @@ export function* setAllDataSaga() {
     yield call(storeAllDetails);
   } catch (error) {
     console.log(error);
+  }
+}
+
+
+export function* updateResultSaga() {
+  try {
+    yield call(updateResult);
+  } catch (error) {
+    console.log(error)
+  } finally {
+    yield delay(1000);
+    yield put(resetAction());
   }
 }

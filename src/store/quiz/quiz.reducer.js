@@ -13,6 +13,7 @@ import {
   SET_FASTERST_ANSWER,
   SET_QUIZ_TO,
   LOADING_PERVIOUS_RESULT,
+  TRADE_SCORE,
 } from "./quiz.constants";
 
 // quiz id is used for diffrentiate between quizes user took during one day
@@ -68,6 +69,8 @@ export function quizReducer(state = initialState, action) {
       return { ...action.payload }
     case LOADING_PERVIOUS_RESULT:
       return { ...state, loading: true };
+    case TRADE_SCORE:
+      return { ...state, score: state.score - 100 }
     default:
       break;
   }

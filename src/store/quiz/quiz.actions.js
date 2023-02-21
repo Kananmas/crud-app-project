@@ -13,7 +13,8 @@ import {
   SET_FASTERST_ANSWER,
   SET_QUIZ_TO,
   LOADING_PERVIOUS_RESULT,
-  SET_ALL_DATA
+  SET_ALL_DATA,
+  TRADE_SCORE
 } from "./quiz.constants";
 
 export function setQuestions(payload) {
@@ -108,5 +109,11 @@ export function loadingPerviousResult() {
 export function setAllDataAction() {
   return {
     type: SET_ALL_DATA
+  }
+}
+
+export function tradeScoreAction() {
+  return {
+    type: TRADE_SCORE
   }
 }

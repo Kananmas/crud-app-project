@@ -2,7 +2,7 @@ import supabase from "../services/supabaseClient";
 import { store } from "../store";
 import { randomString } from "./random-string.util";
 
-export async function setInDataBase(answerRate, quizId) {
+export async function setInDataBase() {
   const quiz = store.getState().quiz
 
   try {
@@ -14,8 +14,8 @@ export async function setInDataBase(answerRate, quizId) {
       wrong_answers_count: quiz.wrongAnswers.length,
       unanswereds_count: quiz.unanswereds.length,
       user_name: localStorage.getItem("username"),
-      fastest_answer: answerRate,
-      quiz_id: quizId,
+      fastest_answer: quiz.fastestAnswer,
+      quiz_id: quiz.quizId,
     }
 
     await supabase.from("result-records").insert(data);
