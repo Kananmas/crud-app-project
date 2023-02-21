@@ -1,8 +1,11 @@
+// hooks
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { IonButton } from "@ionic/react";
+// actions
 import { setChosenRecordAction } from "../../../../store/records/records.actions";
-import { StyledIonButton } from "../../index.style";
+// styles
+import { StyledIonButton } from "./index.styled";
+
 
 export function RecordSelector({ id, date }) {
   const dispatch = useDispatch();

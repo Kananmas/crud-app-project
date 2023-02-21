@@ -1,10 +1,10 @@
-// global components
-import { IonButton } from "@ionic/react";
+// styles
+import { StyledIonButton } from "./index.styled.js";
 
 export function Button(props) {
   return (
-    <IonButton color="orange" onClick={props.onClick}>
+    <StyledIonButton color="orange" onClick={props.onClick} className="customButton">
       {props.children}
-    </IonButton>
+    </StyledIonButton>
   );
 }

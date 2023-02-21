@@ -1,19 +1,18 @@
 // global components
-import { IonInput, IonItem } from "@ionic/react";
+import { IonItem } from "@ionic/react";
 // styles
-import "./style.css";
+import { StylesIonInput } from "./index.styled";
 
 export function Input(props) {
   return (
     <IonItem class="custom">
-      <IonInput
+      <StylesIonInput
         color={props.color}
         placeholder={props.placeholder}
         type={props.type}
         value={props.value}
         onIonChange={props.onChange}
-        class="custom"
-      ></IonInput>
+      ></StylesIonInput>
     </IonItem>
   );
 }

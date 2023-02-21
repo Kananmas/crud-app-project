@@ -1,9 +1,10 @@
-import { IonSpinner } from "@ionic/react";
+// styles
+import { StyledIonSpinner, StyledSpinner } from "./index.styled";
 
 export function LoadingSpinner() {
   return (
-    <div className="spinner">
-      <IonSpinner name="circular" color="orange"></IonSpinner>
-    </div>
+    <StyledSpinner className="spinner">
+      <StyledIonSpinner name="circular" color="orange"></StyledIonSpinner>
+    </StyledSpinner>
   );
 }

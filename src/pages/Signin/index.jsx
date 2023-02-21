@@ -1,20 +1,21 @@
 // components
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-
 // global components
-
-import { Link, useHistory } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 // hooks
-
 import { useEffect, useState } from "react";
 import { useIonAlert } from "@ionic/react";
-
 // utils
-
 import { getUser } from "./utils/get-user.util";
 import { signInUser } from "./utils/sign-in-user.util";
+// styles
+import {
+  StyledContainer,
+  StyledIonContent,
+  StyledIonPage,
+  StyledLink,
+} from "../../App.styled";
 
 export function Signin() {
   let [email, setEmail] = useState("");
@@ -55,27 +56,27 @@ export function Signin() {
   };
 
   return (
-    <div className="container">
-      <Input
-        color="orange"
-        placeholder="Email"
-        type="email"
-        value={email}
-        onChange={handlerChangeEmail}
-      />
-      <Input
-        color="orange"
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={handlerChangePassword}
-      />
-      <Button onClick={handleSignIn}>Sign in</Button>
-      <div>
-        <Link className="orange" to="/signup">
-          don't have an account? sign up
-        </Link>
-      </div>
-    </div>
+    <StyledIonPage>
+      <StyledIonContent>
+        <StyledContainer>
+          <Input
+            color="orange"
+            placeholder="Email"
+            type="email"
+            value={email}
+            onChange={handlerChangeEmail}
+          />
+          <Input
+            color="orange"
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={handlerChangePassword}
+          />
+          <Button onClick={handleSignIn}>Sign in</Button>
+          <StyledLink to="/signup">don't have an account? sign up</StyledLink>
+        </StyledContainer>
+      </StyledIonContent>
+    </StyledIonPage>
   );
 }

@@ -1,25 +1,21 @@
 // global components
-
 import { IonButton, IonContent, IonInfiniteScroll } from "@ionic/react";
+// components
 import { If } from "../../components/If";
-
+import { Else } from "../../components/Else";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
+import { RecordSelector } from "./components/RecordSelector";
 // hooks
-
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
 // action
-
 import { startLoadingRecordsAction } from "../../store/records/records.actions";
-
 // utilis
-
 import { randomString } from "../../utils/random-string.util";
-import { RecordSelector } from "./components/RecordSelector";
-import { Else } from "../../components/Else";
-import { LoadingSpinner } from "../../components/LoadingSpinner";
-import { PageButtons, ResultContainer, StyledIonText } from "./index.style";
+// styles
+import { ResultContainer, StyledIonText } from "./index.styled";
+import { StyledPageButtons } from "../../App.styled";
 
 export function PreviousRecords() {
   const records = useSelector((store) => store.records);
@@ -56,7 +52,7 @@ export function PreviousRecords() {
                   />
                 );
               })}
-              <PageButtons>
+              <StyledPageButtons>
                 <IonButton
                   color="danger"
                   fill="outline"
@@ -71,7 +67,7 @@ export function PreviousRecords() {
                 >
                   Home
                 </IonButton>
-              </PageButtons>
+              </StyledPageButtons>
             </IonInfiniteScroll>
           </ResultContainer>
         </IonContent>

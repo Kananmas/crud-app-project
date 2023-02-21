@@ -1,5 +1,4 @@
 // global components
-
 import {
   IonAccordion,
   IonAccordionGroup,
@@ -14,19 +13,19 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonPage,
 } from "@ionic/react";
 import { PieChart, Pie, Cell } from "recharts";
-
 // hooks
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
 // actions
 import { startLoadingRecordsAction } from "../../store/records/records.actions";
-// utilis
+// utils
 import { randomString } from "../../utils/random-string.util";
+// styles
+import { StyledPageButtons } from "../../App.styled";
 
 export function PastResult() {
   const records = useSelector((store) => store.records);
@@ -70,7 +69,7 @@ export function PastResult() {
 
   if (selectedRecord) {
     return (
-      <>
+      <IonPage>
         <IonContent>
           <IonInfiniteScroll>
             <PieChart width={393} height={200}>
@@ -189,7 +188,7 @@ export function PastResult() {
                 })}
               </IonAccordion>
             </IonAccordionGroup>
-            <div className="pageButtons">
+            <StyledPageButtons>
               <IonButton
                 color="danger"
                 fill="outline"
@@ -204,10 +203,10 @@ export function PastResult() {
               >
                 Home
               </IonButton>
-            </div>
+            </StyledPageButtons>
           </IonInfiniteScroll>
         </IonContent>
-      </>
+      </IonPage>
     );
   }
 }

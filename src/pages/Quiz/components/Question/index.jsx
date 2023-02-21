@@ -1,27 +1,32 @@
 // hooks
-import { useTimer } from "../../../../hooks/timer.hook";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
-
+import { useTimer } from "../../../../hooks/timer.hook";
 // global components
-import {
-  IonButton,
-  IonText,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonIcon,
-} from "@ionic/react";
+import { IonGrid, IonRow, IonCol } from "@ionic/react";
 import { AiOutlineLeft } from "react-icons/ai";
+// actions
 import { resetAction } from "../../../../store/quiz/quiz.actions";
 import { startLoadingAction } from "../../../../store/quiz/quiz.actions";
+// styles
+import { StyledIonContent, StyledIonPage } from "../../../../App.styled";
+import {
+  StyledElements,
+  StyledIonButton,
+  StyledQuestionWrapper,
+  StyledScore,
+  StyledScoreWrapper,
+  StyledTimer,
+  StyledWord,
+  StyledWordWrapper,
+} from "./index.styled";
 
 export function Question(props) {
+  const MAX_TIME = 30;
   const { score, randomWord, handler } = props;
-  let maxTime = 30;
-  let { value, isDone, start, reset, stop } = useTimer(maxTime);
-  let userAnswerRate = maxTime - value;
+  let { value, isDone, start, reset, stop } = useTimer(MAX_TIME);
+  let userAnswerRate = MAX_TIME - value;
   const History = useHistory();
   const dispatch = useDispatch();
 
@@ -38,7 +43,6 @@ export function Question(props) {
 
   function Back() {
     dispatch(resetAction());
-
     History.push("/slider");
   }
 
@@ -74,57 +78,45 @@ export function Question(props) {
   }, [randomWord]);
 
   return (
-    <div className="question">
-      <IonGrid>
-        <IonRow>
-          <IonCol size="2">
-            <div className="col-element" onClick={Back}>
-              <AiOutlineLeft />
-            </div>
-          </IonCol>
-          <IonCol size="2" offset="3">
-            <div className="timer">0:{value}</div>
-          </IonCol>
-          <IonCol offset="2">
-            <div className="col-element" onClick={Restart}>
-              Restart
-            </div>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
+    <StyledIonPage>
+      <StyledIonContent>
+        <StyledQuestionWrapper>
+          <IonGrid>
+            <IonRow>
+              <IonCol size="2">
+                <StyledElements onClick={Back}>
+                  <AiOutlineLeft />
+                </StyledElements>
+              </IonCol>
+              <IonCol size="2" offset="3">
+                <StyledTimer className="timer">0:{value}</StyledTimer>
+              </IonCol>
+              <IonCol offset="2">
+                <StyledElements onClick={Restart}>Restart</StyledElements>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          <StyledWordWrapper>
+            <StyledWord>{randomWord}</StyledWord>
+          </StyledWordWrapper>
 
-      <div className="part ">
-        <div className="org-backlight">
-          <IonText color="orange">
-            <h1>{randomWord}</h1>
-          </IonText>
-        </div>
-      </div>
-
-      <div className="part">
-        <div className="score-meter">
-          <h1>{score}</h1>
-          <p>SCORE</p>
-        </div>
-
-        <IonButton
-          className="start"
-          expand="block"
-          fill="outline"
-          color="orange"
-          size="default"
-          onClick={HandleOnClickRight}
-        >
-          CORRECT
-        </IonButton>
-        <IonButton
-          className="start"
-          expand="block"
-          onClick={HandleOnClickWrong}
-        >
-          WRONG
-        </IonButton>
-      </div>
-    </div>
+          <StyledScoreWrapper className="score-meter">
+            <StyledScore>{score}</StyledScore>
+            <p>SCORE</p>
+          </StyledScoreWrapper>
+          <StyledIonButton
+            expand="block"
+            fill="outline"
+            color="orange"
+            onClick={HandleOnClickRight}
+          >
+            CORRECT
+          </StyledIonButton>
+          <StyledIonButton expand="block" onClick={HandleOnClickWrong}>
+            WRONG
+          </StyledIonButton>
+        </StyledQuestionWrapper>
+      </StyledIonContent>
+    </StyledIonPage>
   );
 }

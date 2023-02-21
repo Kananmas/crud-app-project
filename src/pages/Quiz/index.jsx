@@ -1,13 +1,8 @@
-// utils
-import { setInDataBase } from "../../utils/set-in-database.util";
-
 // hooks
 import { useEffect, useState } from "react";
 import { useRandom } from "../../hooks/random.hook";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { memo } from "react";
-
 // actions
 import {
   decreaseScoreAction,
@@ -19,19 +14,19 @@ import {
   setFastestAnswerAction,
   setAllDataAction,
 } from "../../store/quiz/quiz.actions";
-
 // components
 import { Question } from "./components/Question";
 import { If } from "../../components/If";
 import { Else } from "../../components/Else";
-
-// global components
 import { LoadingSpinner } from "../../components/LoadingSpinner";
+// utils
+import { setInDataBase } from "../../utils/set-in-database.util";
 import {
   blankDataCreator,
   standardDataCreator,
 } from "./utils/data-creators.util";
 
+import { memo } from "react";
 const QuestionMemo = memo(Question);
 
 // we use this function to get value from the store we write it here for sake of optimization
