@@ -1,7 +1,7 @@
 import { call, put } from "redux-saga/effects";
-import { getLastResult } from "../../utils/get-last-result";
+import { getLastResult } from "../../utils/get-last-result.util";
 import { fetchWords } from "../../utils/fetch-words.util";
-import { storeAllDetails } from "../../utils/store-extradata.util";
+import { storeAllDetails } from "../../utils/store-extra-data.util";
 import {
   setQuestions,
   finishLoadingAction,
