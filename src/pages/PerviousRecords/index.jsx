@@ -49,9 +49,7 @@ export function PreviousRecords() {
             <StyledIonText>
               <IonHeader>
                 <IonToolbar>
-                  <IonTitle>
-                    <h1>Previous Records</h1>
-                  </IonTitle>
+                  <IonTitle>Previous Records</IonTitle>
                 </IonToolbar>
               </IonHeader>
             </StyledIonText>

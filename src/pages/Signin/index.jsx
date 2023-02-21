@@ -31,7 +31,7 @@ export function Signin() {
     if (localStorage.getItem("username")) {
       History.push("/slider");
     }
-  }, [user.status]);
+  }, [user]);
 
   const [presentAlert] = useIonAlert();
 
