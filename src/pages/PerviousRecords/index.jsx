@@ -14,7 +14,8 @@ import { startLoadingRecordsAction } from "../../store/records/records.actions";
 // utilis
 import { randomString } from "../../utils/random-string.util";
 // styles
-import { PageButtons, ResultContainer, StyledIonText } from "./index.styled";
+import { ResultContainer, StyledIonText } from "./index.styled";
+import { StyledPageButtons } from "../../App.styled";
 
 export function PreviousRecords() {
   const records = useSelector((store) => store.records);
@@ -51,7 +52,7 @@ export function PreviousRecords() {
                   />
                 );
               })}
-              <PageButtons>
+              <StyledPageButtons>
                 <IonButton
                   color="danger"
                   fill="outline"
@@ -66,7 +67,7 @@ export function PreviousRecords() {
                 >
                   Home
                 </IonButton>
-              </PageButtons>
+              </StyledPageButtons>
             </IonInfiniteScroll>
           </ResultContainer>
         </IonContent>

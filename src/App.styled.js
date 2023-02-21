@@ -26,3 +26,9 @@ export const StyledLink = styled(Link)`
   color: #ff4c01;
   margin-top: 16px;
 `;
+
+export const StyledPageButtons = styled.div`
+  text-align: center;
+  margin-top: 2%;
+  padding: 0% 14%;
+`;

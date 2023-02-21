@@ -32,6 +32,8 @@ import {
   loadingPerviousResult,
   resetAction,
 } from "../../store/quiz/quiz.actions";
+// styles
+import { StyledPageButtons } from "../../App.styled";
 
 export function Result() {
   const quiz = useSelector((store) => store.quiz);
@@ -214,7 +216,7 @@ export function Result() {
                 })}
               </IonAccordion>
             </IonAccordionGroup>
-            <div className="pageButtons">
+            <StyledPageButtons>
               <IonButton
                 expand="block"
                 fill="outline"
@@ -239,7 +241,7 @@ export function Result() {
               >
                 Previous Records
               </IonButton>
-            </div>
+            </StyledPageButtons>
           </IonInfiniteScroll>
         </IonContent>
       </If>

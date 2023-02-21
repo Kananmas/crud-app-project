@@ -9,12 +9,6 @@ export const StyledIonText = styled(IonText)`
   color: white;
 `;
 
-export const PageButtons = styled.div`
-  text-align: center;
-  margin-top: 2%;
-  padding: 0% 14%;
-`;
-
 export const ResultContainer = styled.div`
   color: white;
   text-align: center;
