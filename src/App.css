@@ -12,10 +12,6 @@ code {
     monospace;
 }
 
-html {
-  background-color: #1a1b20;
-}
-
 .swiper-horizontal > .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal,
 .swiper-pagination-custom{
@@ -23,16 +19,3 @@ html {
   left: 15%;
   bottom: 0;
 }
-
-.previousResult {
-  color: white;
-  text-align: center;
-  padding: 0% 4%;
-  height: 90vh;
-  
-}
-
-.previousResult h1{
-  margin-bottom: 14px;
-}
-
