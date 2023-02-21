@@ -1,25 +1,30 @@
 // global components
 import {
   IonButtons,
-  IonButton,
-  IonModal,
-  IonContent,
-  IonToolbar,
   IonTitle,
   IonList,
   IonItem,
   IonLabel,
-  IonImg,
   IonIcon,
   IonFooter,
-  IonThumbnail,
-  IonToggle,
 } from "@ionic/react";
 import { close, logOutOutline, moon, person } from "ionicons/icons";
 // hooks
 import { useRef, useState } from "react";
 // styles
-import styles from "./index.module.css";
+import {
+  StyledCloseIonButton,
+  StyledIonButton,
+  StyledIonContent,
+  StyledIonIcon,
+  StyledIonImg,
+  StyledIonItem,
+  StyledIonList,
+  StyledIonModal,
+  StyledIonThumbnail,
+  StyledIonToggle,
+  StyledIonToolbar,
+} from "./index.styled";
 // assets
 import img from "./assets/images/game-icon1.png";
 // utils
@@ -39,31 +44,19 @@ export function Menu() {
   }
   return (
     <>
-      <IonButton
-        id="open-modal"
-        fill="clear"
-        size="large"
-        className={styles.menuButton}
-      >
-        <IonImg
-          src={`${img}`}
-          alt="menu icon"
-          className={styles.menuImage}
-        ></IonImg>
-      </IonButton>
-      <IonModal className={styles.menuModal} ref={modal} trigger="open-modal">
-        <IonContent className={styles.menuContent}>
-          <IonToolbar className={styles.modalHeader}>
+      <StyledIonButton id="open-modal" fill="clear" size="large">
+        <StyledIonImg src={`${img}`} alt="menu icon"></StyledIonImg>
+      </StyledIonButton>
+      <StyledIonModal ref={modal} trigger="open-modal">
+        <StyledIonContent>
+          <StyledIonToolbar>
             <IonTitle>Menu</IonTitle>
             <IonButtons slot="end">
-              <IonButton
-                onClick={() => dismiss()}
-                className={styles.closeButton}
-              >
+              <StyledCloseIonButton onClick={() => dismiss()}>
                 <IonIcon icon={close}></IonIcon>
-              </IonButton>
+              </StyledCloseIonButton>
             </IonButtons>
-          </IonToolbar>
+          </StyledIonToolbar>
           <IonList>
             <IonItem routerLink="/slider">
               <IonLabel>
@@ -76,38 +69,34 @@ export function Menu() {
               </IonLabel>
             </IonItem>
           </IonList>
-        </IonContent>
+        </StyledIonContent>
         <IonFooter>
-          <IonList className={styles.bgUnset}>
-            <IonItem className={styles.bgUnset}>
-              <IonThumbnail className={styles.iconsWrapper} slot="start">
-                <IonIcon icon={moon} className={styles.footerIcons} />
-              </IonThumbnail>
+          <StyledIonList>
+            <StyledIonItem>
+              <StyledIonThumbnail slot="start">
+                <StyledIonIcon icon={moon} />
+              </StyledIonThumbnail>
               <IonLabel>Dark Mode</IonLabel>
-              <IonToggle
+              <StyledIonToggle
                 slot="end"
                 name="darkMode"
                 checked={darkMode}
                 color="dark"
-                className={styles.darkModeToggle}
                 onIonChange={darkModeToggler}
               />
-            </IonItem>
-            <IonItem className={styles.bgUnset}>
-              <IonThumbnail className={styles.iconsWrapper} slot="start">
-                <IonIcon icon={person} className={styles.footerIcons}></IonIcon>
-              </IonThumbnail>
+            </StyledIonItem>
+            <StyledIonItem>
+              <StyledIonThumbnail slot="start">
+                <StyledIonIcon icon={person}></StyledIonIcon>
+              </StyledIonThumbnail>
               <IonLabel>{localStorage.getItem("username")}</IonLabel>
-              <IonThumbnail className={styles.iconsWrapper} slot="end">
-                <IonIcon
-                  icon={logOutOutline}
-                  className={styles.footerIcons}
-                ></IonIcon>
-              </IonThumbnail>
-            </IonItem>
-          </IonList>
+              <StyledIonThumbnail slot="end">
+                <StyledIonIcon icon={logOutOutline}></StyledIonIcon>
+              </StyledIonThumbnail>
+            </StyledIonItem>
+          </StyledIonList>
         </IonFooter>
-      </IonModal>
+      </StyledIonModal>
     </>
   );
 }
