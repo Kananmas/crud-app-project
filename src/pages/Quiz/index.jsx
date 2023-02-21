@@ -13,6 +13,7 @@ import {
   startLoadingAction,
   setFastestAnswerAction,
   setAllDataAction,
+  resetAction,
 } from "../../store/quiz/quiz.actions";
 // components
 import { Question } from "./components/Question";
@@ -20,7 +21,6 @@ import { If } from "../../components/If";
 import { Else } from "../../components/Else";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 // utils
-import { setInDataBase } from "../../utils/set-in-database.util";
 import {
   blankDataCreator,
   standardDataCreator,
@@ -62,6 +62,7 @@ export function Quiz() {
     }
     // this action will be dispatched when user starts the quiz
     // redux saga takes updates the store
+    dispatch(resetAction());
     dispatch(startLoadingAction());
   }, []);
 

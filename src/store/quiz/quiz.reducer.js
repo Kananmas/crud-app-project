@@ -50,7 +50,16 @@ export function quizReducer(state = initialState, action) {
     case FINISH_LOADING_QUESTIONS:
       return { ...state, loading: false };
     case RESET:
-      return { ...initialState, loading: state.loading };
+      return {
+        questions: [],
+        wrongAnswers: [],
+        rightAnswers: [],
+        unanswereds: [],
+        score: 0,
+        loading: state.loading,
+        quizId: '',
+        fastestAnswer: 30,
+      };
     case GENETRATE_QUIZ_ID:
       return { ...state, quizId: action.payload }
     case SET_FASTERST_ANSWER:

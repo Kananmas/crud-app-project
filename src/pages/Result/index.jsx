@@ -59,6 +59,8 @@ export function Result() {
     }
   }, []);
 
+  console.log(quiz);
+
   const TakeAnotherQuiz = () => {
     if (score >= 100) {
       dispatch(resetAction());

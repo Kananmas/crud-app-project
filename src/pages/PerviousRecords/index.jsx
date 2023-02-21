@@ -1,5 +1,12 @@
 // global components
-import { IonButton, IonContent, IonInfiniteScroll } from "@ionic/react";
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonInfiniteScroll,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
 // components
 import { If } from "../../components/If";
 import { Else } from "../../components/Else";
@@ -40,7 +47,13 @@ export function PreviousRecords() {
         <IonContent>
           <ResultContainer>
             <StyledIonText>
-              <h1>Previous Records</h1>
+              <IonHeader>
+                <IonToolbar>
+                  <IonTitle>
+                    <h1>Previous Records</h1>
+                  </IonTitle>
+                </IonToolbar>
+              </IonHeader>
             </StyledIonText>
             <IonInfiniteScroll>
               {records.records.map((record, index) => {
