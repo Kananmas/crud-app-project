@@ -54,7 +54,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cy:open" : "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -76,6 +77,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "4.6.2",
+    "cypress": "^12.6.0",
     "jest": "^27.5.1"
   },
   "description": "An Ionic project"
