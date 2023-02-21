@@ -16,20 +16,6 @@ html {
   background-color: #1a1b20;
 }
 
-
-.spinner {
-  width: 90%;
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  text-align: center;
-  top: 50%;
-  bottom: 50%;
-}
-
-ion-spinner {
-  transform: scale(2);
-}
 .swiper-horizontal > .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal,
 .swiper-pagination-custom{
