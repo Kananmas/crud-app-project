@@ -11,7 +11,6 @@ import { Result } from "./pages/Result";
 import { PreviousRecords } from "./pages/PerviousRecords";
 import { PastResult } from "./pages/PastResult";
 import { PrivateRoute } from "./components/PrivateRoute";
-import { ProtectedRoute } from "./components/ProtectedRoute";
 // redux
 import { store } from "./store";
 import { Provider } from "react-redux";
@@ -65,9 +64,9 @@ export function App() {
             <PrivateRoute exact path="/pastresult">
               <PastResult />
             </PrivateRoute>
-            <PrivateRoute exact path="/">
-              <Redirect to="/signup" />
-            </PrivateRoute>
+            <Route exact path="/">
+              <Redirect to="/signin" />
+            </Route>
           </Provider>
         </IonRouterOutlet>
       </IonReactRouter>

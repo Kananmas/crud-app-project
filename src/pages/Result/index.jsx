@@ -95,18 +95,6 @@ export function Result() {
     <>
       <If condition={!loading}>
         <IonPage>
-          <PieChart width={393} height={150}>
-            <Pie data={data} dataKey="count" outerRadius={50}>
-              {data.map((entry, index) => {
-                return (
-                  <Cell
-                    key={randomString()}
-                    fill={colors[index % colors.length]}
-                  />
-                );
-              })}
-            </Pie>
-          </PieChart>
           <IonContent>
             <IonInfiniteScroll>
               <PieChart width={393} height={190}>

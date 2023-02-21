@@ -5,10 +5,6 @@ import { useIonAlert } from "@ionic/react";
 // components
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-// utils
-import { addNewUser } from "./utils/add-new-user.util";
-import { isUsernameUsed } from "./utils/is-username-used.util";
-import { signUpUser } from "./utils/sign-up-user.util";
 // styles
 import {
   StyledContainer,
@@ -16,19 +12,27 @@ import {
   StyledIonPage,
   StyledLink,
 } from "../../App.styled";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setEmailAction,
+  setPasswordAction,
+  setUserNameAction,
+  signUpUserAction,
+} from "../../store/user/user.actions";
 
 export function Signup() {
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const History = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
     if (localStorage.getItem("username")) {
-      console.log("hi");
       History.push("/slider");
     }
-  }, []);
+  }, [user]);
 
   const [presentAlert] = useIonAlert();
 
@@ -52,23 +56,10 @@ export function Signup() {
         buttons: ["OK"],
       });
     } else {
-      isUsernameUsed(username).then((isUnique) => {
-        if (isUnique) {
-          localStorage.clear();
-          signUpUser(email, password).then((data) => {
-            if (data) {
-              addNewUser(username, email);
-              History.push("/slider");
-            }
-          });
-        } else {
-          presentAlert({
-            header: "Alert",
-            message: "username is taken by another user please use another one",
-            buttons: ["OK"],
-          });
-        }
-      });
+      dispatch(setUserNameAction(username));
+      dispatch(setEmailAction(email));
+      dispatch(setPasswordAction(password));
+      dispatch(signUpUserAction());
     }
   };
 

@@ -6,9 +6,6 @@ import { useHistory } from "react-router-dom";
 // hooks
 import { useEffect, useState } from "react";
 import { useIonAlert } from "@ionic/react";
-// utils
-import { getUser } from "./utils/get-user.util";
-import { signInUser } from "./utils/sign-in-user.util";
 // styles
 import {
   StyledContainer,
@@ -16,17 +13,25 @@ import {
   StyledIonPage,
   StyledLink,
 } from "../../App.styled";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setEmailAction,
+  setPasswordAction,
+  signInUserAction,
+} from "../../store/user/user.actions";
 
 export function Signin() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   const History = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
     if (localStorage.getItem("username")) {
       History.push("/slider");
     }
-  }, []);
+  }, [user.status]);
 
   const [presentAlert] = useIonAlert();
 
@@ -46,12 +51,9 @@ export function Signin() {
         buttons: ["OK"],
       });
     } else {
-      signInUser(email, password).then((data) => {
-        if (data) {
-          getUser(email);
-          History.push("/slider");
-        }
-      });
+      dispatch(setEmailAction(email));
+      dispatch(setPasswordAction(password));
+      dispatch(signInUserAction());
     }
   };
 

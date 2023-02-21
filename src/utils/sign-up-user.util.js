@@ -1,6 +1,10 @@
-import supabase from "../../../services/supabaseClient";
+import supabase from "../services/supabaseClient";
+import { store } from "../store";
 
-export async function signUpUser(email, password) {
+export async function signUpUser() {
+    const user = store.getState().user;
+    console.log(user)
+    const { email, password } = user;
     try {
         const { data, error } = await supabase.auth.signUp(
             {

@@ -1,7 +1,11 @@
-import supabase from "../../../services/supabaseClient";
-import { randomString } from "../../../utils/random-string.util";
+import supabase from "../services/supabaseClient";
+import { randomString } from "./random-string.util";
+import { store } from "../store";
 
-export async function addNewUser(username, email) {
+export async function addNewUser() {
+    const signup = store.getState().user;
+    const { username, email } = signup
+    console.log(username, email)
     try {
         const { error } = await supabase.from("users").insert({
             id: randomString(),

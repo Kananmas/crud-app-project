@@ -1,6 +1,9 @@
-import supabase from "../../../services/supabaseClient";
+import supabase from "../services/supabaseClient";
+import { store } from "../store";
 
-export async function getUser(email) {
+export async function getUser() {
+    const user = store.getState().user;
+    const { email } = user;
     try {
         const { data, error } = await supabase.from("users").select();
 
