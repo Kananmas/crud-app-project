@@ -13,6 +13,7 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonPage,
 } from "@ionic/react";
 import { PieChart, Pie, Cell } from "recharts";
 // hooks
@@ -68,7 +69,7 @@ export function PastResult() {
 
   if (selectedRecord) {
     return (
-      <>
+      <IonPage>
         <IonContent>
           <IonInfiniteScroll>
             <PieChart width={393} height={200}>
@@ -205,7 +206,7 @@ export function PastResult() {
             </StyledPageButtons>
           </IonInfiniteScroll>
         </IonContent>
-      </>
+      </IonPage>
     );
   }
 }

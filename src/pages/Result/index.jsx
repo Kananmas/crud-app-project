@@ -13,6 +13,7 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonPage,
 } from "@ionic/react";
 import { PieChart, Pie, Cell } from "recharts";
 // components
@@ -93,157 +94,166 @@ export function Result() {
   return (
     <>
       <If condition={!loading}>
-        <PieChart width={393} height={150}>
-          <Pie data={data} dataKey="count" outerRadius={50}>
-            {data.map((entry, index) => {
-              return (
-                <Cell
-                  key={randomString()}
-                  fill={colors[index % colors.length]}
-                />
-              );
-            })}
-          </Pie>
-        </PieChart>
-        <IonContent>
-          <IonInfiniteScroll>
-            <PieChart width={393} height={190}>
-              <Pie
-                data={data}
-                dataKey="count"
-                outerRadius={70}
-                innerRadius={50}
-              >
-                {data.map((entry, index) => {
-                  return (
-                    <Cell
-                      key={randomString()}
-                      fill={colors[index % colors.length]}
-                    />
-                  );
-                })}
-              </Pie>
-            </PieChart>
-            <IonCard>
-              <IonCardHeader>
-                <IonCardTitle>Result</IonCardTitle>
-              </IonCardHeader>
+        <IonPage>
+          <PieChart width={393} height={150}>
+            <Pie data={data} dataKey="count" outerRadius={50}>
+              {data.map((entry, index) => {
+                return (
+                  <Cell
+                    key={randomString()}
+                    fill={colors[index % colors.length]}
+                  />
+                );
+              })}
+            </Pie>
+          </PieChart>
+          <IonContent>
+            <IonInfiniteScroll>
+              <PieChart width={393} height={190}>
+                <Pie
+                  data={data}
+                  dataKey="count"
+                  outerRadius={70}
+                  innerRadius={50}
+                >
+                  {data.map((entry, index) => {
+                    return (
+                      <Cell
+                        key={randomString()}
+                        fill={colors[index % colors.length]}
+                      />
+                    );
+                  })}
+                </Pie>
+              </PieChart>
+              <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>Result</IonCardTitle>
+                </IonCardHeader>
 
-              <IonList>
-                <IonItem>
-                  <IonLabel>Score</IonLabel>
-                  <IonBadge color="primary">{score}</IonBadge>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Correct Answers</IonLabel>
-                  <IonBadge color="success">{rightAnswers.length}</IonBadge>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Wrong Answers</IonLabel>
-                  <IonBadge color="danger">{wrongAnswers.length}</IonBadge>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Blank</IonLabel>
-                  <IonBadge color="warning">{unanswereds.length}</IonBadge>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Fanstest Answer</IonLabel>
-                  <IonBadge color="tertiary">{fastestAnswer}.s</IonBadge>
-                </IonItem>
-              </IonList>
+                <IonList>
+                  <IonItem>
+                    <IonLabel>Score</IonLabel>
+                    <IonBadge color="primary">{score}</IonBadge>
+                  </IonItem>
+                  <IonItem>
+                    <IonLabel>Correct Answers</IonLabel>
+                    <IonBadge color="success">{rightAnswers.length}</IonBadge>
+                  </IonItem>
+                  <IonItem>
+                    <IonLabel>Wrong Answers</IonLabel>
+                    <IonBadge color="danger">{wrongAnswers.length}</IonBadge>
+                  </IonItem>
+                  <IonItem>
+                    <IonLabel>Blank</IonLabel>
+                    <IonBadge color="warning">{unanswereds.length}</IonBadge>
+                  </IonItem>
+                  <IonItem>
+                    <IonLabel>Fanstest Answer</IonLabel>
+                    <IonBadge color="tertiary">{fastestAnswer}.s</IonBadge>
+                  </IonItem>
+                </IonList>
 
-              <IonCardContent>
-                press Try again to trade point and have another go
-              </IonCardContent>
-            </IonCard>
+                <IonCardContent>
+                  press Try again to trade point and have another go
+                </IonCardContent>
+              </IonCard>
 
-            <IonAccordionGroup>
-              <IonAccordion value="first">
-                <IonItem slot="header" color="light">
-                  Correct Answers
-                </IonItem>
-                {rightAnswers.map((element) => {
-                  return (
-                    <div
-                      className="ion-padding"
-                      slot="content"
-                      key={randomString()}
-                    >
-                      True answer was<IonBadge>{element.true_answer}</IonBadge>{" "}
-                      your answer was{" "}
-                      <IonBadge color="success">{element.user_answer}</IonBadge>
-                    </div>
-                  );
-                })}
-              </IonAccordion>
-            </IonAccordionGroup>
-            <IonAccordionGroup>
-              <IonAccordion value="second">
-                <IonItem slot="header" color="light">
-                  Wrong Answers
-                </IonItem>
-                {wrongAnswers.map((element) => {
-                  return (
-                    <div
-                      className="ion-padding"
-                      slot="content"
-                      key={randomString()}
-                    >
-                      True answer was <IonBadge>{element.true_answer}</IonBadge>{" "}
-                      your answer was{" "}
-                      <IonBadge color="danger">{element.user_answer}</IonBadge>
-                    </div>
-                  );
-                })}
-              </IonAccordion>
-            </IonAccordionGroup>
-            <IonAccordionGroup>
-              <IonAccordion value="third">
-                <IonItem slot="header" color="light">
-                  Blank Answers
-                </IonItem>
-                {unanswereds.map((element) => {
-                  return (
-                    <div
-                      className="ion-padding"
-                      slot="content"
-                      key={randomString()}
-                    >
-                      question was <IonBadge>{element.question}</IonBadge> true
-                      answer was <IonBadge>{element.true_answer}</IonBadge>
-                    </div>
-                  );
-                })}
-              </IonAccordion>
-            </IonAccordionGroup>
-            <StyledPageButtons>
-              <IonButton
-                expand="block"
-                fill="outline"
-                color="danger"
-                onClick={TakeAnotherQuiz}
-              >
-                Play Again (costs 100 points)
-              </IonButton>
-              <IonButton
-                expand="block"
-                fill="outline"
-                color="danger"
-                onClick={HandleClickHome}
-              >
-                Back
-              </IonButton>
-              <IonButton
-                expand="block"
-                fill="outline"
-                color="danger"
-                onClick={SeePreviousRecords}
-              >
-                Previous Records
-              </IonButton>
-            </StyledPageButtons>
-          </IonInfiniteScroll>
-        </IonContent>
+              <IonAccordionGroup>
+                <IonAccordion value="first">
+                  <IonItem slot="header" color="light">
+                    Correct Answers
+                  </IonItem>
+                  {rightAnswers.map((element) => {
+                    return (
+                      <div
+                        className="ion-padding"
+                        slot="content"
+                        key={randomString()}
+                      >
+                        True answer was
+                        <IonBadge>{element.true_answer}</IonBadge> your answer
+                        was{" "}
+                        <IonBadge color="success">
+                          {element.user_answer}
+                        </IonBadge>
+                      </div>
+                    );
+                  })}
+                </IonAccordion>
+              </IonAccordionGroup>
+              <IonAccordionGroup>
+                <IonAccordion value="second">
+                  <IonItem slot="header" color="light">
+                    Wrong Answers
+                  </IonItem>
+                  {wrongAnswers.map((element) => {
+                    return (
+                      <div
+                        className="ion-padding"
+                        slot="content"
+                        key={randomString()}
+                      >
+                        True answer was{" "}
+                        <IonBadge>{element.true_answer}</IonBadge> your answer
+                        was{" "}
+                        <IonBadge color="danger">
+                          {element.user_answer}
+                        </IonBadge>
+                      </div>
+                    );
+                  })}
+                </IonAccordion>
+              </IonAccordionGroup>
+              <IonAccordionGroup>
+                <IonAccordion value="third">
+                  <IonItem slot="header" color="light">
+                    Blank Answers
+                  </IonItem>
+                  {unanswereds.map((element) => {
+                    return (
+                      <div
+                        className="ion-padding"
+                        slot="content"
+                        key={randomString()}
+                      >
+                        question was <IonBadge>{element.question}</IonBadge>{" "}
+                        true answer was{" "}
+                        <IonBadge>{element.true_answer}</IonBadge>
+                      </div>
+                    );
+                  })}
+                </IonAccordion>
+              </IonAccordionGroup>
+              <StyledPageButtons>
+                <IonButton
+                  expand="block"
+                  fill="outline"
+                  color="danger"
+                  onClick={TakeAnotherQuiz}
+                >
+                  Play Again (costs 100 points)
+                </IonButton>
+                <IonButton
+                  expand="block"
+                  fill="outline"
+                  color="danger"
+                  onClick={HandleClickHome}
+                >
+                  Back
+                </IonButton>
+                <IonButton
+                  expand="block"
+                  fill="outline"
+                  color="danger"
+                  onClick={SeePreviousRecords}
+                >
+                  Previous Records
+                </IonButton>
+              </StyledPageButtons>
+            </IonInfiniteScroll>
+          </IonContent>
+        </IonPage>
       </If>
       <Else condition={!loading}>
         <LoadingSpinner />
