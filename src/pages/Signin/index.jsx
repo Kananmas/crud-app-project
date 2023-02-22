@@ -1,10 +1,8 @@
 // components
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-// global components
-import { useHistory } from "react-router-dom";
 // hooks
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useIonAlert } from "@ionic/react";
 // styles
 import {
@@ -13,7 +11,7 @@ import {
   StyledIonPage,
   StyledLink,
 } from "../../App.styled";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setEmailAction,
   setPasswordAction,
@@ -23,15 +21,7 @@ import {
 export function Signin() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  const History = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-
-  useEffect(() => {
-    if (localStorage.getItem("username")) {
-      History.push("/slider");
-    }
-  }, [user]);
 
   const [presentAlert] = useIonAlert();
 

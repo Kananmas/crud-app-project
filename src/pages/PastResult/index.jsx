@@ -55,15 +55,15 @@ export function PastResult() {
   const data = [
     {
       name: "wrongs",
-      count: selectedRecord ? selectedRecord.wrongs.length : 0,
+      count: selectedRecord ? selectedRecord.wrongsCount : 0,
     },
     {
       name: "unanswered",
-      count: selectedRecord ? selectedRecord.blanks.length : 0,
+      count: selectedRecord ? selectedRecord.blanksCount : 0,
     },
     {
       name: "rights",
-      count: selectedRecord ? selectedRecord.rights.length : 0,
+      count: selectedRecord ? selectedRecord.rightsCount : 0,
     },
   ];
 

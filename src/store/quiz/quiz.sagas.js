@@ -8,6 +8,7 @@ import {
   genereateQuizIdAction,
   setQuizToAction,
   resetAction,
+  startLoadingAction,
 } from "./quiz.actions";
 import { updateResult } from "../../utils/update-result.util";
 import { delay } from "redux-saga/effects";
@@ -45,10 +46,10 @@ export function* setAllDataSaga() {
 export function* updateResultSaga() {
   try {
     yield call(updateResult);
+    yield put(resetAction());
   } catch (error) {
     console.log(error)
   } finally {
-    yield delay(1000);
-    yield put(resetAction());
+    yield put(startLoadingAction())
   }
 }

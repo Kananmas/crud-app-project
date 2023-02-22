@@ -42,6 +42,11 @@ export function Menu() {
     darkModeHandler();
     setDarkMode(!darkMode);
   }
+
+  function OnClickLogOut() {
+    localStorage.clear();
+    dismiss();
+  }
   return (
     <>
       <StyledIonButton id="open-modal" fill="clear" size="large">
@@ -68,6 +73,11 @@ export function Menu() {
                 <h2>Result</h2>
               </IonLabel>
             </IonItem>
+            <IonItem routerLink="/previousrecords">
+              <IonLabel>
+                <h2>Previous Results</h2>
+              </IonLabel>
+            </IonItem>
           </IonList>
         </StyledIonContent>
         <IonFooter>
@@ -91,7 +101,10 @@ export function Menu() {
               </StyledIonThumbnail>
               <IonLabel>{localStorage.getItem("username")}</IonLabel>
               <StyledIonThumbnail slot="end">
-                <StyledIonIcon icon={logOutOutline}></StyledIonIcon>
+                <StyledIonIcon
+                  onClick={OnClickLogOut}
+                  icon={logOutOutline}
+                ></StyledIonIcon>
               </StyledIonThumbnail>
             </StyledIonItem>
           </StyledIonList>

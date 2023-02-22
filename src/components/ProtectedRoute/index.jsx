@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Redirect } from "react-router";
 import { Route } from "react-router";
 
-export function PrivateRoute({ path, children }) {
+export function ProtectedRoute({ path, children }) {
   const [username, setUsername] = useState();
 
   useEffect(() => {
@@ -11,13 +11,13 @@ export function PrivateRoute({ path, children }) {
     }, 1000);
   }, []);
 
-  if (username) {
+  if (!username) {
     return (
       <Route exact path={path}>
         {children}
       </Route>
     );
   } else {
-    return <Redirect to="/signup" />;
+    return <Redirect to="/slider" />;
   }
 }

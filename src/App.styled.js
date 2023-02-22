@@ -24,7 +24,7 @@ export const StyledContainer = styled.div`
 
 export const StyledLink = styled(Link)`
   color: #ff4c01;
-  margin-top: 16px;
+  margin-top: 14px;
 `;
 
 export const StyledPageButtons = styled.div`

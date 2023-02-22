@@ -30,7 +30,9 @@ export function PreviousRecords() {
   const History = useHistory();
 
   useEffect(() => {
-    dispatch(startLoadingRecordsAction());
+    if (!records.records.length) {
+      dispatch(startLoadingRecordsAction());
+    }
   }, []);
 
   const HandleOnClickBack = () => {
