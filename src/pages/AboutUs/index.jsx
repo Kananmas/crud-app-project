@@ -51,7 +51,9 @@ export function AboutUs() {
           responsible for redux-saga and unit testing <br />{" "}
           <StyledTitle>
             {" "}
-            <LinksText>Zahra Mohseni</LinksText>
+            <LinksText href="https://www.linkedin.com/in/zahramohseni95">
+              Zahra Mohseni
+            </LinksText>
             <StyledLinkedInIcon />
           </StyledTitle>
           responsible for creating the UI and UX and writing end to end tests
@@ -59,7 +61,9 @@ export function AboutUs() {
           <br />
           <StyledTitle>
             {" "}
-            <LinksText>Somaye Baniasadi</LinksText>
+            <LinksText href="http://www.linkedin.com/in/somaye-baniasadi">
+              Somaye Baniasadi
+            </LinksText>
             <StyledLinkedInIcon />
           </StyledTitle>{" "}
           responsible for UI and UX creation of the Previous Records page and
