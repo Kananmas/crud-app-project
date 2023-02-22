@@ -72,7 +72,7 @@ export function PastResult() {
       <IonPage>
         <IonContent>
           <IonInfiniteScroll>
-            <PieChart width={393} height={200}>
+            <PieChart data-testid={"pieChart"} width={393} height={200}>
               <Pie
                 data={data}
                 dataKey="count"

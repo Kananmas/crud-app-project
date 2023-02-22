@@ -1,6 +1,7 @@
 // hooks
 import { useState } from "react";
 import { useIonAlert } from "@ionic/react";
+import { useDispatch } from "react-redux";
 // components
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
@@ -11,7 +12,6 @@ import {
   StyledIonPage,
   StyledLink,
 } from "../../App.styled";
-import { useDispatch } from "react-redux";
 import {
   setEmailAction,
   setPasswordAction,
@@ -80,7 +80,7 @@ export function Signup() {
             onChange={handlerChangeEmail}
           />
 
-          <Button onClick={HandleSignUp}>Sign up</Button>
+          <Button data-testId="button" onClick={HandleSignUp}>Sign up</Button>
           <StyledLink to="/signin">already have an account?</StyledLink>
         </StyledContainer>
       </StyledIonContent>
