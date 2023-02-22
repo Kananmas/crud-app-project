@@ -23,7 +23,7 @@ export function AboutUs() {
         <StyledContainer>
           <h4>About Misspelle</h4>
           <h6>A-TEAM</h6>
-          <h6>V.1.0.6</h6>
+          <h6>V.1.0.7</h6>
           <br />{" "}
           <IonText>
             This project is done with the efforts of all memebers of the A-team
