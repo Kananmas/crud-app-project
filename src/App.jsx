@@ -36,6 +36,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 // styles
 import "./App.css";
+import { AboutUs } from "./pages/AboutUs";
 
 setupIonicReact();
 export function App() {
@@ -65,9 +66,9 @@ export function App() {
             <PrivateRoute exact path="/pastresult">
               <PastResult />
             </PrivateRoute>
-            <Route exact path="/">
-              <Redirect to="/signin" />
-            </Route>
+            <PrivateRoute exact path="/aboutus">
+              <AboutUs />
+            </PrivateRoute>
           </Provider>
         </IonRouterOutlet>
       </IonReactRouter>

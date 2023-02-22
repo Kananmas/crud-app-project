@@ -78,6 +78,11 @@ export function Menu() {
                 <h2>Previous Results</h2>
               </IonLabel>
             </IonItem>
+            <IonItem routerLink="/aboutus">
+              <IonLabel>
+                <h2>About Us</h2>
+              </IonLabel>
+            </IonItem>
           </IonList>
         </StyledIonContent>
         <IonFooter>
