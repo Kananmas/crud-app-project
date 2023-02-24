@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { Question } from ".";
+import { Quiz } from ".";
 
 // redux
 import { Provider } from "react-redux";
-import { store } from "../../../../store";
+import { store } from "../../store";
 //ionic
 import { IonReactRouter } from "@ionic/react-router";
 
@@ -12,7 +12,7 @@ describe("Question", () => {
     render(
       <IonReactRouter>
         <Provider store={store}>
-          <Question />
+          <Quiz />
         </Provider>
       </IonReactRouter>
     );
