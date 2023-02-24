@@ -3,7 +3,7 @@ import { Redirect } from "react-router";
 import { Route } from "react-router";
 
 export function PrivateRoute({ path, children }) {
-  const [username, setUsername] = useState();
+  const [username, setUsername] = useState(!!localStorage.getItem("username"));
 
   useEffect(() => {
     setInterval(() => {

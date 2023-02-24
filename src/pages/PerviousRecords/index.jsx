@@ -6,12 +6,15 @@ import {
   IonInfiniteScroll,
   IonTitle,
   IonToolbar,
+  IonGrid,
+  IonCol,
 } from "@ionic/react";
 // components
 import { If } from "../../components/If";
 import { Else } from "../../components/Else";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { RecordSelector } from "./components/RecordSelector";
+import { StyledBackIcon, StyledHomeIcon } from "../../App.styled";
 // hooks
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +25,6 @@ import { startLoadingRecordsAction } from "../../store/records/records.actions";
 import { randomString } from "../../utils/random-string.util";
 // styles
 import { ResultContainer, StyledIonText } from "./index.styled";
-import { StyledPageButtons } from "../../App.styled";
 
 export function PreviousRecords() {
   const records = useSelector((store) => store.records);
@@ -51,7 +53,15 @@ export function PreviousRecords() {
             <StyledIonText>
               <IonHeader>
                 <IonToolbar>
-                  <IonTitle>Previous Records</IonTitle>
+                  <IonGrid>
+                    <IonCol>
+                      <StyledBackIcon onClick={HandleOnClickBack} />
+                    </IonCol>
+                    <IonCol offset={8.5}>
+                      <StyledHomeIcon onClick={HandleOnClickHome} />
+                    </IonCol>
+                  </IonGrid>
+                  <IonTitle>History</IonTitle>
                 </IonToolbar>
               </IonHeader>
             </StyledIonText>
@@ -65,22 +75,6 @@ export function PreviousRecords() {
                   />
                 );
               })}
-              <StyledPageButtons>
-                <IonButton
-                  color="danger"
-                  fill="outline"
-                  onClick={HandleOnClickBack}
-                >
-                  Back
-                </IonButton>
-                <IonButton
-                  fill="outline"
-                  color="danger"
-                  onClick={HandleOnClickHome}
-                >
-                  Home
-                </IonButton>
-              </StyledPageButtons>
             </IonInfiniteScroll>
           </ResultContainer>
         </IonContent>

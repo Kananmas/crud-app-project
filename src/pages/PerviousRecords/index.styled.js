@@ -12,5 +12,5 @@ export const StyledIonText = styled(IonText)`
 export const ResultContainer = styled.div`
   color: white;
   text-align: center;
-  padding: 0% 4%;
+  height:100vh;
 `;

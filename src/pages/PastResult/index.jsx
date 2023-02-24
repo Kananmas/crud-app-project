@@ -8,7 +8,9 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonCol,
   IonContent,
+  IonGrid,
   IonInfiniteScroll,
   IonItem,
   IonLabel,
@@ -25,7 +27,7 @@ import { startLoadingRecordsAction } from "../../store/records/records.actions";
 // utils
 import { randomString } from "../../utils/random-string.util";
 // styles
-import { StyledPageButtons } from "../../App.styled";
+import { StyledBackIcon, StyledHomeIcon } from "../../App.styled";
 
 export function PastResult() {
   const records = useSelector((store) => store.records);
@@ -72,6 +74,15 @@ export function PastResult() {
       <IonPage>
         <IonContent>
           <IonInfiniteScroll>
+            <IonGrid>
+              <IonCol offset={0.5}>
+                <StyledBackIcon onClick={HandleOnClickBack} />
+              </IonCol>
+              <IonCol offset={8.5}>
+                <StyledHomeIcon onClick={HandleOnClickHome} />
+              </IonCol>
+            </IonGrid>
+
             <PieChart width={393} height={200}>
               <Pie
                 data={data}
@@ -127,83 +138,73 @@ export function PastResult() {
                   </IonItem>
                 </IonList>
               </IonCardContent>
+              <IonAccordionGroup>
+                <IonAccordion value="first">
+                  <IonItem slot="header" color="light">
+                    Correct Answers
+                  </IonItem>
+                  {selectedRecord.rights.map((element) => {
+                    return (
+                      <div
+                        className="ion-padding"
+                        slot="content"
+                        key={randomString()}
+                      >
+                        True answer was
+                        <IonBadge>{element.true_answer}</IonBadge> your answer
+                        was{" "}
+                        <IonBadge color="success">
+                          {element.user_answer}
+                        </IonBadge>
+                      </div>
+                    );
+                  })}
+                </IonAccordion>
+              </IonAccordionGroup>
+              <IonAccordionGroup>
+                <IonAccordion value="second">
+                  <IonItem slot="header" color="light">
+                    Wrong Answers
+                  </IonItem>
+                  {selectedRecord.wrongs.map((element) => {
+                    return (
+                      <div
+                        className="ion-padding"
+                        slot="content"
+                        key={randomString()}
+                      >
+                        True answer was{" "}
+                        <IonBadge>{element.true_answer}</IonBadge> your answer
+                        was{" "}
+                        <IonBadge color="danger">
+                          {element.user_answer}
+                        </IonBadge>
+                      </div>
+                    );
+                  })}
+                </IonAccordion>
+              </IonAccordionGroup>
+              <IonAccordionGroup>
+                <IonAccordion value="third">
+                  <IonItem slot="header" color="light">
+                    Blank Answers
+                  </IonItem>
+                  {selectedRecord.blanks.map((element) => {
+                    return (
+                      <div
+                        className="ion-padding"
+                        slot="content"
+                        key={randomString()}
+                      >
+                        question was <IonBadge>{element.question}</IonBadge>{" "}
+                        true answer was{" "}
+                        <IonBadge>{element.true_answer}</IonBadge>
+                      </div>
+                    );
+                  })}
+                </IonAccordion>
+              </IonAccordionGroup>
             </IonCard>
-
-            <IonAccordionGroup>
-              <IonAccordion value="first">
-                <IonItem slot="header" color="light">
-                  Correct Answers
-                </IonItem>
-                {selectedRecord.rights.map((element) => {
-                  return (
-                    <div
-                      className="ion-padding"
-                      slot="content"
-                      key={randomString()}
-                    >
-                      True answer was<IonBadge>{element.true_answer}</IonBadge>{" "}
-                      your answer was{" "}
-                      <IonBadge color="success">{element.user_answer}</IonBadge>
-                    </div>
-                  );
-                })}
-              </IonAccordion>
-            </IonAccordionGroup>
-            <IonAccordionGroup>
-              <IonAccordion value="second">
-                <IonItem slot="header" color="light">
-                  Wrong Answers
-                </IonItem>
-                {selectedRecord.wrongs.map((element) => {
-                  return (
-                    <div
-                      className="ion-padding"
-                      slot="content"
-                      key={randomString()}
-                    >
-                      True answer was <IonBadge>{element.true_answer}</IonBadge>{" "}
-                      your answer was{" "}
-                      <IonBadge color="danger">{element.user_answer}</IonBadge>
-                    </div>
-                  );
-                })}
-              </IonAccordion>
-            </IonAccordionGroup>
-            <IonAccordionGroup>
-              <IonAccordion value="third">
-                <IonItem slot="header" color="light">
-                  Blank Answers
-                </IonItem>
-                {selectedRecord.blanks.map((element) => {
-                  return (
-                    <div
-                      className="ion-padding"
-                      slot="content"
-                      key={randomString()}
-                    >
-                      question was <IonBadge>{element.question}</IonBadge> true
-                      answer was <IonBadge>{element.true_answer}</IonBadge>
-                    </div>
-                  );
-                })}
-              </IonAccordion>
-            </IonAccordionGroup>
-            <StyledPageButtons>
-              <IonButton
-                color="danger"
-                fill="outline"
-                onClick={HandleOnClickBack}
-              >
-                Back
-              </IonButton>
-              <IonButton
-                fill="outline"
-                color="danger"
-                onClick={HandleOnClickHome}
-              >
-                Home
-              </IonButton>
-            </StyledPageButtons>
           </IonInfiniteScroll>
         </IonContent>
       </IonPage>

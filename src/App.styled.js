@@ -3,6 +3,9 @@ import styled from "styled-components";
 // global components
 import { IonPage, IonContent } from "@ionic/react";
 import { Link } from "react-router-dom";
+import { AiOutlineHome } from "react-icons/ai";
+import { BsArrowLeft } from "react-icons/bs";
+
 
 export const StyledIonPage = styled(IonPage)`
   background-color: #191a1f;
@@ -30,5 +33,17 @@ export const StyledLink = styled(Link)`
 export const StyledPageButtons = styled.div`
   text-align: center;
   margin-top: 2%;
-  padding: 0% 14%;
+  padding: 0%;
 `;
+
+
+
+
+export const StyledHomeIcon = styled(AiOutlineHome)`
+    font-size:32px;
+`
+
+export const StyledBackIcon = styled(BsArrowLeft)`
+    font-size:32px;
+`
+

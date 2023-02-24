@@ -75,7 +75,7 @@ export function Menu() {
             </IonItem>
             <IonItem routerLink="/previousrecords">
               <IonLabel>
-                <h2>Previous Results</h2>
+                <h2>History</h2>
               </IonLabel>
             </IonItem>
             <IonItem routerLink="/aboutus">

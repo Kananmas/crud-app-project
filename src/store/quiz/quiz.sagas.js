@@ -11,8 +11,9 @@ import {
   startLoadingAction,
 } from "./quiz.actions";
 import { updateResult } from "../../utils/update-result.util";
-import { delay } from "redux-saga/effects";
 
+// this saga will get the questions from data base the 
+// puts it inside of our store
 export function* quizSaga() {
   try {
     const data = yield call(fetchWords);
@@ -24,6 +25,9 @@ export function* quizSaga() {
   }
 }
 
+
+// this saga is called to get the last result of the player
+// and show it to him in case it store is reseted upon reloading or something 
 export function* lastQuizSaga() {
   try {
     const data = yield call(getLastResult);
@@ -34,6 +38,8 @@ export function* lastQuizSaga() {
   }
 }
 
+// this saga is used after the end of the quiz
+// it will set the data of the user wrong answers,right answrs etc...
 export function* setAllDataSaga() {
   try {
     yield call(storeAllDetails);
@@ -42,7 +48,7 @@ export function* setAllDataSaga() {
   }
 }
 
-
+// this saga updates result when user wants to trade 100 points to take another quiz
 export function* updateResultSaga() {
   try {
     yield call(updateResult);

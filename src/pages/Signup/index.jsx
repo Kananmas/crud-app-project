@@ -27,18 +27,20 @@ export function Signup() {
 
   const [presentAlert] = useIonAlert();
 
+  // handles username changes
   const handlerChangeUsername = (e) => {
     setUsername(e.target.value);
   };
-
+  // handles password changes
   const handlerChangePassword = (e) => {
     setPassword(e.target.value);
   };
-
+  // handles email changes
   const handlerChangeEmail = (e) => {
     setEmail(e.target.value);
   };
 
+  //handles sign up
   const HandleSignUp = () => {
     if (!username.length || !password.length || !email.length) {
       presentAlert({
@@ -47,9 +49,11 @@ export function Signup() {
         buttons: ["OK"],
       });
     } else {
+      // sets username,email,password to redux store
       dispatch(setUserNameAction(username));
       dispatch(setEmailAction(email));
       dispatch(setPasswordAction(password));
+      // this is a saga action that will handle sign in for us
       dispatch(signUpUserAction());
     }
   };

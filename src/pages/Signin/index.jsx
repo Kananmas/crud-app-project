@@ -25,24 +25,29 @@ export function Signin() {
 
   const [presentAlert] = useIonAlert();
 
+  //handles password change
   const handlerChangePassword = (e) => {
     setPassword(e.target.value);
   };
 
+  //handles email change
   const handlerChangeEmail = (e) => {
     setEmail(e.target.value);
   };
 
   const handleSignIn = () => {
     if (!password.length || !email.length) {
+      //alerts user about empty fields
       presentAlert({
         header: "Alert",
         message: "please enter fill all the fields",
         buttons: ["OK"],
       });
     } else {
+      // upon pressing the sign in button email and password would be set inside the store
       dispatch(setEmailAction(email));
       dispatch(setPasswordAction(password));
+      // this is an saga action that will take care of siging in for us
       dispatch(signInUserAction());
     }
   };

@@ -1,9 +1,6 @@
 // global components
 import {
-  IonAccordion,
-  IonAccordionGroup,
   IonBadge,
-  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -14,6 +11,8 @@ import {
   IonLabel,
   IonList,
   IonPage,
+  IonAccordionGroup,
+  IonAccordion,
 } from "@ionic/react";
 import { PieChart, Pie, Cell } from "recharts";
 // components
@@ -34,8 +33,11 @@ import {
 } from "../../store/quiz/quiz.actions";
 // styles
 import { StyledPageButtons } from "../../App.styled";
+import { Button } from "../../components/Button";
+import { StyledIonButton } from "../Slider/index.styled";
 
 export function Result() {
+  //redux
   const quiz = useSelector((store) => store.quiz);
   const dispatch = useDispatch();
   const {
@@ -46,17 +48,22 @@ export function Result() {
     fastestAnswer,
     loading,
   } = quiz;
-
+  //other
   const [presentAlert] = useIonAlert();
   const History = useHistory();
 
   useEffect(() => {
     localStorage.setItem("lastQuizDate", new Date().toDateString());
+    // if there was no questions set means that user reloaded the page therefor we take the result of the last quiz
+    // form data base and set it inside our store show it to the user
     if (!quiz.questions.length) {
       dispatch(loadingPerviousResult());
     }
   }, []);
 
+  // if user dosent have enough points to take another quiz
+  // user will be faced with an alert
+  // otherwise it update the result in data base and he will have another go
   const TakeAnotherQuiz = () => {
     if (score >= 100) {
       localStorage.removeItem("lastQuizDate");
@@ -71,10 +78,12 @@ export function Result() {
     }
   };
 
+  // goes to home page
   const HandleClickHome = () => {
     History.push("/slider");
   };
 
+  // goes to page of previous result
   const SeePreviousRecords = () => {
     History.push("/previousrecords");
   };
@@ -93,7 +102,7 @@ export function Result() {
         <IonPage>
           <IonContent>
             <IonInfiniteScroll>
-              <PieChart width={393} height={150}>
+              <PieChart style={{ marginTop: "34px" }} width={393} height={150}>
                 <Pie
                   data={data}
                   dataKey="count"
@@ -141,99 +150,83 @@ export function Result() {
                 <IonCardContent>
                   press Try again to trade point and have another go
                 </IonCardContent>
+                <IonAccordionGroup>
+                  <IonAccordion value="first">
+                    <IonItem slot="header" color="light">
+                      Correct Answers
+                    </IonItem>
+                    {rightAnswers.map((element) => {
+                      return (
+                        <div
+                          className="ion-padding"
+                          slot="content"
+                          key={randomString()}
+                        >
+                          True answer was
+                          <IonBadge>{element.true_answer}</IonBadge> your answer
+                          was{" "}
+                          <IonBadge color="success">
+                            {element.user_answer}
+                          </IonBadge>
+                        </div>
+                      );
+                    })}
+                  </IonAccordion>
+                </IonAccordionGroup>
+                <IonAccordionGroup>
+                  <IonAccordion value="second">
+                    <IonItem slot="header" color="light">
+                      Wrong Answers
+                    </IonItem>
+                    {wrongAnswers.map((element) => {
+                      return (
+                        <div
+                          className="ion-padding"
+                          slot="content"
+                          key={randomString()}
+                        >
+                          True answer was{" "}
+                          <IonBadge>{element.true_answer}</IonBadge> your answer
+                          was{" "}
+                          <IonBadge color="danger">
+                            {element.user_answer}
+                          </IonBadge>
+                        </div>
+                      );
+                    })}
+                  </IonAccordion>
+                </IonAccordionGroup>
+                <IonAccordionGroup>
+                  <IonAccordion value="third">
+                    <IonItem slot="header" color="light">
+                      Blank Answers
+                    </IonItem>
+                    {unanswereds.map((element) => {
+                      return (
+                        <div
+                          className="ion-padding"
+                          slot="content"
+                          key={randomString()}
+                        >
+                          question was <IonBadge>{element.question}</IonBadge>{" "}
+                          true answer was{" "}
+                          <IonBadge>{element.true_answer}</IonBadge>
+                        </div>
+                      );
+                    })}
+                  </IonAccordion>
+                </IonAccordionGroup>
               </IonCard>
-
-              <IonAccordionGroup>
-                <IonAccordion value="first">
-                  <IonItem slot="header" color="light">
-                    Correct Answers
-                  </IonItem>
-                  {rightAnswers.map((element) => {
-                    return (
-                      <div
-                        className="ion-padding"
-                        slot="content"
-                        key={randomString()}
-                      >
-                        True answer was
-                        <IonBadge>{element.true_answer}</IonBadge> your answer
-                        was{" "}
-                        <IonBadge color="success">
-                          {element.user_answer}
-                        </IonBadge>
-                      </div>
-                    );
-                  })}
-                </IonAccordion>
-              </IonAccordionGroup>
-              <IonAccordionGroup>
-                <IonAccordion value="second">
-                  <IonItem slot="header" color="light">
-                    Wrong Answers
-                  </IonItem>
-                  {wrongAnswers.map((element) => {
-                    return (
-                      <div
-                        className="ion-padding"
-                        slot="content"
-                        key={randomString()}
-                      >
-                        True answer was{" "}
-                        <IonBadge>{element.true_answer}</IonBadge> your answer
-                        was{" "}
-                        <IonBadge color="danger">
-                          {element.user_answer}
-                        </IonBadge>
-                      </div>
-                    );
-                  })}
-                </IonAccordion>
-              </IonAccordionGroup>
-              <IonAccordionGroup>
-                <IonAccordion value="third">
-                  <IonItem slot="header" color="light">
-                    Blank Answers
-                  </IonItem>
-                  {unanswereds.map((element) => {
-                    return (
-                      <div
-                        className="ion-padding"
-                        slot="content"
-                        key={randomString()}
-                      >
-                        question was <IonBadge>{element.question}</IonBadge>{" "}
-                        true answer was{" "}
-                        <IonBadge>{element.true_answer}</IonBadge>
-                      </div>
-                    );
-                  })}
-                </IonAccordion>
-              </IonAccordionGroup>
               <StyledPageButtons>
-                <IonButton
-                  expand="block"
-                  fill="outline"
-                  color="danger"
-                  onClick={TakeAnotherQuiz}
-                >
+                <StyledIonButton onClick={TakeAnotherQuiz}>
                   Play Again (costs 100 points)
-                </IonButton>
-                <IonButton
-                  expand="block"
-                  fill="outline"
-                  color="danger"
-                  onClick={HandleClickHome}
-                >
-                  Back
-                </IonButton>
-                <IonButton
-                  expand="block"
-                  fill="outline"
-                  color="danger"
-                  onClick={SeePreviousRecords}
-                >
-                  Previous Records
-                </IonButton>
+                </StyledIonButton>
+                <StyledIonButton onClick={HandleClickHome}>
+                  Home
+                </StyledIonButton>
+                <StyledIonButton onClick={SeePreviousRecords}>
+                  History
+                </StyledIonButton>
               </StyledPageButtons>
             </IonInfiniteScroll>
           </IonContent>
