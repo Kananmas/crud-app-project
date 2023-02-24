@@ -57,11 +57,11 @@ export function PreviousRecords() {
                     <IonCol>
                       <StyledBackIcon onClick={HandleOnClickBack} />
                     </IonCol>
-                    <IonCol offset={8.5}>
+                    <IonCol offset={2}>History</IonCol>
+                    <IonCol offset={2.5}>
                       <StyledHomeIcon onClick={HandleOnClickHome} />
                     </IonCol>
                   </IonGrid>
-                  <IonTitle>History</IonTitle>
                 </IonToolbar>
               </IonHeader>
             </StyledIonText>
